@@ -60,31 +60,30 @@
             label13 = new Label();
             Txt_Route_ID = new TextBox();
             FuelPage = new TabPage();
-            comboBox1 = new ComboBox();
+            cb_TypeFuel = new ComboBox();
             DateTimeFuel = new DateTimePicker();
             label14 = new Label();
             label15 = new Label();
-            textBox16 = new TextBox();
+            Txt_FuelPrice = new TextBox();
             label16 = new Label();
             label17 = new Label();
-            textBox17 = new TextBox();
+            Txt_FuelId = new TextBox();
             TravelPage = new TabPage();
-            comboBox4 = new ComboBox();
+            cb_driver = new ComboBox();
             label23 = new Label();
-            comboBox3 = new ComboBox();
+            cb_travel = new ComboBox();
             label22 = new Label();
-            comboBox2 = new ComboBox();
-            dateTimePicker3 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
+            cb_vehicle = new ComboBox();
+            DateTimeStartTravel = new DateTimePicker();
+            DateTimeBring = new DateTimePicker();
             label18 = new Label();
             label19 = new Label();
             label20 = new Label();
             label21 = new Label();
-            textBox15 = new TextBox();
-            pageSetupDialog1 = new PageSetupDialog();
+            Txt_TravelID = new TextBox();
             panel1 = new Panel();
-            button4 = new Button();
-            button3 = new Button();
+            btn_delete = new Button();
+            btn_search = new Button();
             button2 = new Button();
             btn_save = new Button();
             tabControl1.SuspendLayout();
@@ -389,14 +388,14 @@
             // 
             // FuelPage
             // 
-            FuelPage.Controls.Add(comboBox1);
+            FuelPage.Controls.Add(cb_TypeFuel);
             FuelPage.Controls.Add(DateTimeFuel);
             FuelPage.Controls.Add(label14);
             FuelPage.Controls.Add(label15);
-            FuelPage.Controls.Add(textBox16);
+            FuelPage.Controls.Add(Txt_FuelPrice);
             FuelPage.Controls.Add(label16);
             FuelPage.Controls.Add(label17);
-            FuelPage.Controls.Add(textBox17);
+            FuelPage.Controls.Add(Txt_FuelId);
             FuelPage.Location = new Point(4, 29);
             FuelPage.Name = "FuelPage";
             FuelPage.Size = new Size(994, 479);
@@ -404,14 +403,14 @@
             FuelPage.Text = "Preço Combustível";
             FuelPage.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cb_TypeFuel
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Etanol", "Diesel", "Gasolina", "Pódium" });
-            comboBox1.Location = new Point(338, 184);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(141, 28);
-            comboBox1.TabIndex = 36;
+            cb_TypeFuel.FormattingEnabled = true;
+            cb_TypeFuel.Items.AddRange(new object[] { "Etanol", "Diesel", "Gasolina", "Pódium" });
+            cb_TypeFuel.Location = new Point(338, 184);
+            cb_TypeFuel.Name = "cb_TypeFuel";
+            cb_TypeFuel.Size = new Size(141, 28);
+            cb_TypeFuel.TabIndex = 36;
             // 
             // DateTimeFuel
             // 
@@ -441,12 +440,12 @@
             label15.TabIndex = 28;
             label15.Text = "Combustível de Precomb:";
             // 
-            // textBox16
+            // Txt_FuelPrice
             // 
-            textBox16.Location = new Point(338, 291);
-            textBox16.Name = "textBox16";
-            textBox16.Size = new Size(277, 26);
-            textBox16.TabIndex = 34;
+            Txt_FuelPrice.Location = new Point(338, 291);
+            Txt_FuelPrice.Name = "Txt_FuelPrice";
+            Txt_FuelPrice.Size = new Size(277, 26);
+            Txt_FuelPrice.TabIndex = 34;
             // 
             // label16
             // 
@@ -468,27 +467,27 @@
             label17.TabIndex = 30;
             label17.Text = "Preço do Precomb:";
             // 
-            // textBox17
+            // Txt_FuelId
             // 
-            textBox17.Location = new Point(338, 137);
-            textBox17.Name = "textBox17";
-            textBox17.Size = new Size(141, 26);
-            textBox17.TabIndex = 31;
+            Txt_FuelId.Location = new Point(338, 137);
+            Txt_FuelId.Name = "Txt_FuelId";
+            Txt_FuelId.Size = new Size(141, 26);
+            Txt_FuelId.TabIndex = 31;
             // 
             // TravelPage
             // 
-            TravelPage.Controls.Add(comboBox4);
+            TravelPage.Controls.Add(cb_driver);
             TravelPage.Controls.Add(label23);
-            TravelPage.Controls.Add(comboBox3);
+            TravelPage.Controls.Add(cb_travel);
             TravelPage.Controls.Add(label22);
-            TravelPage.Controls.Add(comboBox2);
-            TravelPage.Controls.Add(dateTimePicker3);
-            TravelPage.Controls.Add(dateTimePicker2);
+            TravelPage.Controls.Add(cb_vehicle);
+            TravelPage.Controls.Add(DateTimeStartTravel);
+            TravelPage.Controls.Add(DateTimeBring);
             TravelPage.Controls.Add(label18);
             TravelPage.Controls.Add(label19);
             TravelPage.Controls.Add(label20);
             TravelPage.Controls.Add(label21);
-            TravelPage.Controls.Add(textBox15);
+            TravelPage.Controls.Add(Txt_TravelID);
             TravelPage.Location = new Point(4, 29);
             TravelPage.Name = "TravelPage";
             TravelPage.Size = new Size(994, 479);
@@ -496,15 +495,14 @@
             TravelPage.Text = "Viagem";
             TravelPage.UseVisualStyleBackColor = true;
             // 
-            // comboBox4
+            // cb_driver
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "Teste", "Teste" });
-            comboBox4.Location = new Point(287, 374);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(145, 28);
-            comboBox4.TabIndex = 49;
-            comboBox4.SelectedIndexChanged += comboBox4_SelectedIndexChanged;
+            cb_driver.FormattingEnabled = true;
+            cb_driver.Location = new Point(287, 374);
+            cb_driver.Name = "cb_driver";
+            cb_driver.Size = new Size(193, 28);
+            cb_driver.TabIndex = 49;
+            cb_driver.DropDown += comboBox4_DropDown;
             // 
             // label23
             // 
@@ -516,15 +514,15 @@
             label23.TabIndex = 48;
             label23.Text = "Motorista:";
             // 
-            // comboBox3
+            // cb_travel
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "Teste", "Teste" });
-            comboBox3.Location = new Point(287, 324);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(145, 28);
-            comboBox3.TabIndex = 47;
-            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+            cb_travel.FormattingEnabled = true;
+            cb_travel.Items.AddRange(new object[] { "" });
+            cb_travel.Location = new Point(287, 324);
+            cb_travel.Name = "cb_travel";
+            cb_travel.Size = new Size(500, 28);
+            cb_travel.TabIndex = 47;
+            cb_travel.DropDown += comboBox3_DropDown;
             // 
             // label22
             // 
@@ -536,30 +534,30 @@
             label22.TabIndex = 46;
             label22.Text = "Rota da Viagem:";
             // 
-            // comboBox2
+            // cb_vehicle
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(287, 271);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(145, 28);
-            comboBox2.TabIndex = 45;
-            comboBox2.DropDown += comboBox2_DropDown;
+            cb_vehicle.FormattingEnabled = true;
+            cb_vehicle.Location = new Point(287, 271);
+            cb_vehicle.Name = "cb_vehicle";
+            cb_vehicle.Size = new Size(193, 28);
+            cb_vehicle.TabIndex = 45;
+            cb_vehicle.DropDown += comboBox2_DropDown;
             // 
-            // dateTimePicker3
+            // DateTimeStartTravel
             // 
-            dateTimePicker3.Format = DateTimePickerFormat.Short;
-            dateTimePicker3.Location = new Point(287, 170);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(103, 26);
-            dateTimePicker3.TabIndex = 44;
+            DateTimeStartTravel.Format = DateTimePickerFormat.Short;
+            DateTimeStartTravel.Location = new Point(287, 170);
+            DateTimeStartTravel.Name = "DateTimeStartTravel";
+            DateTimeStartTravel.Size = new Size(103, 26);
+            DateTimeStartTravel.TabIndex = 44;
             // 
-            // dateTimePicker2
+            // DateTimeBring
             // 
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(287, 220);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(103, 26);
-            dateTimePicker2.TabIndex = 43;
+            DateTimeBring.Format = DateTimePickerFormat.Short;
+            DateTimeBring.Location = new Point(287, 220);
+            DateTimeBring.Name = "DateTimeBring";
+            DateTimeBring.Size = new Size(103, 26);
+            DateTimeBring.TabIndex = 43;
             // 
             // label18
             // 
@@ -601,19 +599,19 @@
             label21.TabIndex = 40;
             label21.Text = "Veículo da Viagem:";
             // 
-            // textBox15
+            // Txt_TravelID
             // 
-            textBox15.Location = new Point(287, 121);
-            textBox15.Name = "textBox15";
-            textBox15.Size = new Size(103, 26);
-            textBox15.TabIndex = 41;
+            Txt_TravelID.Location = new Point(287, 121);
+            Txt_TravelID.Name = "Txt_TravelID";
+            Txt_TravelID.Size = new Size(103, 26);
+            Txt_TravelID.TabIndex = 41;
             // 
             // panel1
             // 
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel1.BackColor = Color.LightGray;
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button3);
+            panel1.Controls.Add(btn_delete);
+            panel1.Controls.Add(btn_search);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(btn_save);
             panel1.Location = new Point(12, 31);
@@ -621,28 +619,31 @@
             panel1.Size = new Size(1002, 90);
             panel1.TabIndex = 10;
             // 
-            // button4
+            // btn_delete
             // 
-            button4.BackColor = Color.White;
-            button4.BackgroundImage = (Image)resources.GetObject("button4.BackgroundImage");
-            button4.BackgroundImageLayout = ImageLayout.Stretch;
-            button4.Cursor = Cursors.Hand;
-            button4.Location = new Point(250, 3);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 84);
-            button4.TabIndex = 3;
-            button4.UseVisualStyleBackColor = false;
+            btn_delete.BackColor = Color.White;
+            btn_delete.BackgroundImage = (Image)resources.GetObject("btn_delete.BackgroundImage");
+            btn_delete.BackgroundImageLayout = ImageLayout.Stretch;
+            btn_delete.Cursor = Cursors.Hand;
+            btn_delete.Enabled = false;
+            btn_delete.Location = new Point(250, 3);
+            btn_delete.Name = "btn_delete";
+            btn_delete.Size = new Size(75, 84);
+            btn_delete.TabIndex = 3;
+            btn_delete.UseVisualStyleBackColor = false;
+            btn_delete.Click += btn_delete_Click;
             // 
-            // button3
+            // btn_search
             // 
-            button3.BackColor = Color.White;
-            button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
-            button3.BackgroundImageLayout = ImageLayout.Stretch;
-            button3.Location = new Point(169, 3);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 84);
-            button3.TabIndex = 2;
-            button3.UseVisualStyleBackColor = false;
+            btn_search.BackColor = Color.White;
+            btn_search.BackgroundImage = (Image)resources.GetObject("btn_search.BackgroundImage");
+            btn_search.BackgroundImageLayout = ImageLayout.Stretch;
+            btn_search.Location = new Point(169, 3);
+            btn_search.Name = "btn_search";
+            btn_search.Size = new Size(75, 84);
+            btn_search.TabIndex = 2;
+            btn_search.UseVisualStyleBackColor = false;
+            btn_search.Click += btn_search_Click;
             // 
             // button2
             // 
@@ -711,12 +712,11 @@
         private TabPage CarPage;
         private TabPage DriverPage;
         private TabPage RoutePage;
-        private PageSetupDialog pageSetupDialog1;
         private TabPage FuelPage;
         private TabPage TravelPage;
         private Panel panel1;
-        private Button button4;
-        private Button button3;
+        private Button btn_delete;
+        private Button btn_search;
         private Button button2;
         private Button btn_save;
         private TextBox Txt_DriverName;
@@ -737,23 +737,23 @@
         private TextBox Txt_Route_ID;
         private Label label14;
         private Label label15;
-        private TextBox textBox16;
+        private TextBox Txt_FuelPrice;
         private Label label16;
         private Label label17;
-        private TextBox textBox17;
+        private TextBox Txt_FuelId;
         private DateTimePicker DateTimeFuel;
-        private ComboBox comboBox1;
-        private DateTimePicker dateTimePicker2;
+        private ComboBox cb_TypeFuel;
+        private DateTimePicker DateTimeBring;
         private Label label18;
         private Label label19;
         private Label label20;
         private Label label21;
-        private TextBox textBox15;
-        private DateTimePicker dateTimePicker3;
-        private ComboBox comboBox4;
+        private TextBox Txt_TravelID;
+        private DateTimePicker DateTimeStartTravel;
+        private ComboBox cb_driver;
         private Label label23;
-        private ComboBox comboBox3;
+        private ComboBox cb_travel;
         private Label label22;
-        private ComboBox comboBox2;
+        private ComboBox cb_vehicle;
     }
 }
