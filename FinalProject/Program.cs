@@ -1,3 +1,6 @@
+using System.Numerics;
+using System.Reflection;
+
 namespace FinalProject
 {
     internal static class Program

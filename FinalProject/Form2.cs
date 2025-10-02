@@ -24,7 +24,16 @@ namespace FinalProject
             searchDataGridVehicle();
         }
 
-        private void searchDataGridVehicle()
+        public class VehicleDatas()
+        {
+            public string VehicleId { get; set; }
+            public string Model { get; set; }
+            public string Plate { get; set; }
+            public string AverageCons { get; set; }
+            public string MaxLoad { get; set; }
+        }
+        public VehicleDatas VehicleSelected { get; private set; }
+            private void searchDataGridVehicle()
         {
             try
             {
@@ -79,8 +88,7 @@ namespace FinalProject
             {
                 conexao.Close();
             }
-            Form1 frm1 = new Form1();
-            frm1.Show();
+            Application.OpenForms["Form1"].Show();
 
         }
 
@@ -113,5 +121,26 @@ namespace FinalProject
                 MessageBox.Show("Erro");
             }
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                VehicleSelected = new VehicleDatas
+                {
+                    VehicleId = row.Cells["VEICULOID"].Value.ToString(),
+                    Model = row.Cells["MODELO"].Value.ToString(),
+                    Plate = row.Cells["PLACA"].Value.ToString(),
+                    AverageCons = row.Cells["CONSUMO_MEDIO"].Value.ToString(),
+                    MaxLoad = row.Cells["CARGA_MAXIMA"].Value.ToString()
+                };
+
+                this.DialogResult = DialogResult.OK; 
+                this.Close();
+            }
+     
+        }
     }
 }
+    

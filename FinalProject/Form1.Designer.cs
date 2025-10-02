@@ -193,6 +193,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1002, 512);
             tabControl1.TabIndex = 11;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // CarPage
             // 

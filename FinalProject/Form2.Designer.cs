@@ -47,6 +47,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(776, 348);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // label1
             // 
@@ -61,7 +62,7 @@
             // 
             Txt_Search_grid.Location = new Point(35, 52);
             Txt_Search_grid.Name = "Txt_Search_grid";
-            Txt_Search_grid.Size = new Size(100, 23);
+            Txt_Search_grid.Size = new Size(119, 23);
             Txt_Search_grid.TabIndex = 2;
             // 
             // button1
@@ -76,7 +77,7 @@
             // 
             // btn_clear
             // 
-            btn_clear.Location = new Point(241, 51);
+            btn_clear.Location = new Point(241, 52);
             btn_clear.Name = "btn_clear";
             btn_clear.Size = new Size(75, 23);
             btn_clear.TabIndex = 4;

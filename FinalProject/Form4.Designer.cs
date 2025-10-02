@@ -28,28 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            textBox1 = new TextBox();
+            btn_search = new Button();
+            Txt_search_grid = new TextBox();
             label1 = new Label();
             dataGridView1 = new DataGridView();
+            btn_clear = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // btn_search
             // 
-            button1.Location = new Point(160, 48);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 8;
-            button1.Text = "Consultar";
-            button1.UseVisualStyleBackColor = true;
+            btn_search.Location = new Point(160, 48);
+            btn_search.Name = "btn_search";
+            btn_search.Size = new Size(75, 23);
+            btn_search.TabIndex = 8;
+            btn_search.Text = "Consultar";
+            btn_search.UseVisualStyleBackColor = true;
+            btn_search.Click += btn_search_Click;
             // 
-            // textBox1
+            // Txt_search_grid
             // 
-            textBox1.Location = new Point(35, 48);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 7;
+            Txt_search_grid.Location = new Point(35, 48);
+            Txt_search_grid.Name = "Txt_search_grid";
+            Txt_search_grid.Size = new Size(119, 23);
+            Txt_search_grid.TabIndex = 7;
             // 
             // label1
             // 
@@ -68,26 +70,40 @@
             dataGridView1.Size = new Size(776, 348);
             dataGridView1.TabIndex = 5;
             // 
+            // btn_clear
+            // 
+            btn_clear.Location = new Point(241, 47);
+            btn_clear.Name = "btn_clear";
+            btn_clear.Size = new Size(75, 23);
+            btn_clear.TabIndex = 10;
+            btn_clear.Text = "Resetar";
+            btn_clear.UseVisualStyleBackColor = true;
+            btn_clear.Click += btn_clear_Click;
+            // 
             // Form4
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(btn_clear);
+            Controls.Add(btn_search);
+            Controls.Add(Txt_search_grid);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
             Name = "Form4";
             Text = "Form4";
+            FormClosing += Form4_FormClosing;
+            Load += Form4_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Button button1;
-        private TextBox textBox1;
+        private Button btn_search;
+        private TextBox Txt_search_grid;
         private Label label1;
         private DataGridView dataGridView1;
+        private Button btn_clear;
     }
 }
