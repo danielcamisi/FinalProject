@@ -23,6 +23,16 @@ namespace FinalProject
             searchAllDrivers();
         }
 
+        public class DriverDatas()
+        {
+            public string DriverId { get; set; }
+            public string Name { get; set; }
+            public string Cnh { get; set; }
+            public string Phone { get; set; }
+            public string Address { get; set; }
+        }
+        public DriverDatas driverDataSelected { get; private set; }
+
         private void searchAllDrivers()
         {
             try
@@ -82,6 +92,25 @@ namespace FinalProject
                 conexao.Close();
             }
             Application.OpenForms["Form1"].Show();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+                driverDataSelected = new DriverDatas
+                {
+                    DriverId = row.Cells["MOTORISTAID"].Value.ToString(),
+                    Name = row.Cells["NOME"].Value.ToString(),
+                    Cnh = row.Cells["CNH"].Value.ToString(),
+                    Phone = row.Cells["TELEFONE"].Value.ToString()
+                };
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }

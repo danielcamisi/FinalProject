@@ -32,6 +32,35 @@ namespace FinalProject
             Application.OpenForms["Form1"].Show();
         }
 
+        public class RoutesDatas()
+        {
+            public string RouteId { get; set; }
+            public string Origin { get; set; }
+            public string Destination { get; set; }
+            public string Distance { get; set; }
+    
+
+        }
+        public RoutesDatas routeDataSelected { get; private set; }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                routeDataSelected = new RoutesDatas
+                {
+                    RouteId = row.Cells["ROTAID"].Value.ToString(),
+                    Origin = row.Cells["ORIGEM"].Value.ToString(),
+                    Destination = row.Cells["DESTINO"].Value.ToString(),
+                    Distance = row.Cells["DISTANCIA"].Value.ToString()
+                };
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+
         private void searchAllRoutes()
         {
             try
@@ -84,5 +113,6 @@ namespace FinalProject
         {
             searchAllRoutes();
         }
+
     }
 }

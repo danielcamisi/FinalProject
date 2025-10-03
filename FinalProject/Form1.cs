@@ -5,6 +5,10 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 using static FinalProject.Form2;
+using static FinalProject.Form3;
+using static FinalProject.Form4;
+using static FinalProject.Form5;
+using static FinalProject.Form6;
 
 namespace FinalProject
 {
@@ -14,10 +18,7 @@ namespace FinalProject
         string dbPath = @"C:\Users\daniel.csilva66\Desktop\logistica.db";
 
         string connectionString;
-        public Form1
-            (
-
-            )
+        public Form1()
         {
             InitializeComponent();
             connectionString = $"Data Source={dbPath};Version=3;";
@@ -32,9 +33,6 @@ namespace FinalProject
 
 
         }
-
-
-
         private void ConnectDb()
         {
             try
@@ -66,6 +64,146 @@ namespace FinalProject
             deleteForm();
         }
 
+        private void btn_edit_Click(object sender, EventArgs e)
+        {
+            editForm();
+        }
+
+        private void editForm()
+        {
+            int indice = tabControl1.SelectedIndex;
+            if (indice == 0)
+            {
+                try
+                {
+                    using(var connect = new SQLiteConnection(connectionString))
+                    {
+                        connect.Open();
+                        string updateQuery = "UPDATE VEICULO SET MODELO = @Modelo, CONSUMO_MEDIO = @ConsMedio, CARGA_MAXIMA = @CargaMax WHERE PLACA = @Placa";
+                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        {
+                            cmd.Parameters.AddWithValue("@Modelo", Txt_Vehicle_Model.Text);
+                            cmd.Parameters.AddWithValue("@ConsMedio", Txt_Avarage.Text);
+                            cmd.Parameters.AddWithValue("@CargaMax", Txt_Max_Weight.Text);
+                            cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+            }
+            else if (indice == 1)
+            {
+                try
+                {
+                    using(var connect = new SQLiteConnection(connectionString))
+                    {
+                        connect.Open();
+                        string updateQuery = "UPDATE MOTORISTA SET NOME = @Nome, TELEFONE = @Phone WHERE CNH = @CNH";
+                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        {
+                            cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
+                            cmd.Parameters.AddWithValue("@Phone", Txt_DriverPhone.Text);
+                            cmd.Parameters.AddWithValue("@CNH", Txt_DriverLicense.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+            else if (indice == 2)
+            {
+                try
+                {
+                    using(var connect = new SQLiteConnection(connectionString))
+                    {
+                        connect.Open();
+                        string updateQuery = "UPDATE ROTA SET DESTINO = @Destino, DISTANCIA = @Dist WHERE ORIGEM = @Origem";
+                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        {
+                            cmd.Parameters.AddWithValue("@Destino", Txt_RouteDestiny.Text);
+                            cmd.Parameters.AddWithValue("@Dist", Txt_RoutePath.Text);
+                            cmd.Parameters.AddWithValue("@Origem", Txt_RouteOrigin.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+            else if (indice == 3)
+            {
+                try
+                {
+                 using(var connect = new SQLiteConnection(connectionString))
+                    {
+                        connect.Open();
+                        string updateQuery = "UPDATE PRECO_COMBUSTIVEL SET COMBUSTIVEL = @Combustível, PRECO = @Preco, DATA_CONSULTA = @DataConsulta WHERE PRECOID = @Combustivel";
+                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        {
+                            cmd.Parameters.AddWithValue("@Combustível", cb_TypeFuel.Text);
+                            cmd.Parameters.AddWithValue("@Preco", Txt_FuelPrice.Text);
+                            cmd.Parameters.AddWithValue("@DataConsulta", DateTimeFuel.Value.ToString("yyyy-MM-dd"));
+                            cmd.Parameters.AddWithValue("@Combustivel", Txt_FuelId.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+            }
+            else if (indice == 4)
+            {
+                try
+                {
+                    using (var connect = new SQLiteConnection(connectionString))
+                    {
+                        connect.Open();
+                        string updateQuery = "UPDATE VIAGEM SET DATA_SAIDA = @DataSaida, DATA_CHEGADA = @DataChegada, VEICULOID = @Veiculo, ROTAID = @Rota, MOTORISTAID = @Motorista WHERE VIAGEMID = @Viagem";
+                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        {
+                            cmd.Parameters.AddWithValue("@DataSaida", DateTimeStartTravel.Value.ToString("yyyy-MM-dd"));
+                            cmd.Parameters.AddWithValue("@DataChegada", DateTimeBring.Value.ToString("yyyy-MM-dd"));
+                            cmd.Parameters.AddWithValue("@Veiculo", cb_vehicle.SelectedValue);
+                            cmd.Parameters.AddWithValue("@Rota", cb_travel.SelectedValue);
+                            cmd.Parameters.AddWithValue("@Motorista", cb_driver.SelectedValue);
+                            cmd.Parameters.AddWithValue("@Viagem", Txt_TravelID.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    }catch(Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+            }
+        }
+
+
         private void deleteForm()
         {
             int indice = tabControl1.SelectedIndex;
@@ -82,6 +220,9 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
                             cmd.ExecuteNonQuery();
                         }
+
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
                     }
 
                 }
@@ -103,6 +244,8 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
                             cmd.ExecuteNonQuery();
                         }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -123,6 +266,8 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Origem", Txt_RouteOrigin.Text);
                             cmd.ExecuteNonQuery();
                         }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -143,6 +288,8 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Combustivel", Txt_FuelId.Text);
                             cmd.ExecuteNonQuery();
                         }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
                     }
 
                 }
@@ -164,6 +311,8 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Viagem", Txt_TravelID.Text);
                             cmd.ExecuteNonQuery();
                         }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -173,20 +322,70 @@ namespace FinalProject
             }
         }
 
-        private void DataBridge(VehicleDatas vehicle)
+        private void DataBridgeVehicle(VehicleDatas vehicle)
         {
             ID_Vehicle_Txt.Text = vehicle.VehicleId;
             Txt_Vehicle_Model.Text = vehicle.Model;
             Txt_Plate.Text = vehicle.Plate;
             Txt_Avarage.Text = vehicle.AverageCons;
             Txt_Max_Weight.Text = vehicle.MaxLoad;
+
+
+        }
+
+        private void DataBridgeDriver(DriverDatas driver)
+        {
+            Txt_Driver_ID.Text = driver.DriverId;
+            Txt_DriverName.Text = driver.Name;
+            Txt_DriverLicense.Text = driver.Cnh;
+            Txt_DriverPhone.Text = driver.Phone;
+        }
+
+        private void DataBridgeRoute(RoutesDatas route)
+        {
+            Txt_Route_ID.Text = route.RouteId;
+            Txt_RouteOrigin.Text = route.Origin;
+            Txt_RouteDestiny.Text = route.Destination;
+            Txt_RoutePath.Text = route.Distance;
+        }
+
+        private void DataBridgeFuel(FuelDatas fuel)
+        {
+            Txt_FuelId.Text = fuel.FuelId;
+            cb_TypeFuel.Text = fuel.Type;
+            Txt_FuelPrice.Text = fuel.Price;
+            DateTimeFuel.Value = DateTime.Parse(fuel.Date);
+        }
+
+        private void DataBridgeTravel(TravelDatas travel)
+        {
+            //Vehicles Vars
+            string Plate = travel.Plate;
+            string Model = travel.Model;
+            string VehicleID = travel.VehicleId;
+
+            // Driver Vars
+            string Name = travel.name;
+            string cnh = travel.cnh;
+            string DriverID = travel.DriverId;
+
+            // Route Vars
+            string Origin = travel.Origin;
+            string Destination = travel.path;
+            string RouteID = travel.RouteId;
+
+            Txt_TravelID.Text = travel.TravelId;
+            DateTimeStartTravel.Value = DateTime.Parse(travel.DepartureDate);
+            DateTimeBring.Value = DateTime.Parse(travel.ArrivalDate);
+            cb_vehicle.Text = $"{VehicleID} - {Model} - {Plate}";
+            cb_travel.Text = $"{RouteID} - {Origin} - {Destination}";
+            cb_driver.Text = $"{DriverID} - {Name} - {cnh}";
         }
         private void searchForm()
         {
             int indice = tabControl1.SelectedIndex;
             if (indice == 0)
             {
-                // Abre Form2 modally para esperar o usuário
                 using (Form2 frm2 = new Form2())
                 {
                     var resultado = frm2.ShowDialog();
@@ -195,41 +394,89 @@ namespace FinalProject
                         VehicleDatas vehicle = frm2.VehicleSelected;
                         if (vehicle != null)
                         {
-                            // Atualiza os campos com os dados do veículo selecionado
-                            DataBridge(vehicle);
+
+                            DataBridgeVehicle(vehicle);
+                            btn_delete.Enabled = true;
+                            btn_edit.Enabled = true;
                         }
                     }
                     else
                     {
-                        // Usuário fechou o form sem selecionar
-                        // Opcional: mostrar mensagem ou limpar campos
+
                     }
                 }
-                this.Show(); // Reexibe Form1 após fechar o Form2
+                this.Show();
             }
             else if (indice == 1)
             {
-                this.Hide();
-                Form3 frm3 = new Form3();
-                frm3.Show();
+                using (Form3 frm3 = new Form3())
+                {
+                    var resultado = frm3.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                    {
+                        DriverDatas driver = frm3.driverDataSelected;
+                        if (driver != null)
+                        {
+                            DataBridgeDriver(driver);
+                            btn_delete.Enabled = true;
+                            btn_edit.Enabled = true;
+                        }
+                    }
+
+                }
+
+
             }
             else if (indice == 2)
             {
-                this.Hide();
-                Form4 frm4 = new Form4();
-                frm4.Show();
+                using (Form4 frm4 = new Form4())
+                {
+                    var resultado = frm4.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                    {
+                        RoutesDatas routes = frm4.routeDataSelected;
+                        if (routes != null)
+                        {
+                            DataBridgeRoute(routes);
+                            btn_delete.Enabled = true;
+                            btn_edit.Enabled = true;
+                        }
+                    }
+                }
             }
             else if (indice == 3)
             {
-                this.Hide();
-                Form5 frm5 = new Form5();
-                frm5.Show();
+                using (Form5 frm5 = new Form5())
+                {
+                    var resultado = frm5.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                    {
+                        FuelDatas fuel = frm5.fuelDataSelected;
+                        if (fuel != null)
+                        {
+                            DataBridgeFuel(fuel);
+                            btn_delete.Enabled = true;
+                            btn_edit.Enabled = true;
+                        }
+                    }
+                }
             }
             else if (indice == 4)
             {
-                this.Hide();
-                Form6 frm6 = new Form6();
-                frm6.Show();
+                using (Form6 frm6 = new Form6())
+                {
+                    var resultado = frm6.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                    {
+                        TravelDatas travel = frm6.TravelSelected;
+                        if (travel != null)
+                        {
+                            DataBridgeTravel(travel);
+                            btn_delete.Enabled = true;
+                            btn_edit.Enabled = true;
+                        }
+                    }
+                }
             }
         }
 
@@ -274,6 +521,7 @@ namespace FinalProject
                             "VALUES (@Nome, @CNH, @Phone)";
                         using (var cmd = new SQLiteCommand(insertQuery, connect))
                         {
+
                             cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
                             cmd.Parameters.AddWithValue("@CNH", Txt_DriverLicense.Text);
                             cmd.Parameters.AddWithValue("@Phone", Txt_DriverPhone.Text);
@@ -465,7 +713,6 @@ namespace FinalProject
 
         private void FieldsCleaning()
         {
-
             //Veículo
             ID_Vehicle_Txt.Clear();
             Txt_Vehicle_Model.Clear();
@@ -495,14 +742,19 @@ namespace FinalProject
             Txt_TravelID.Clear();
             DateTimeStartTravel.Value = DateTime.Today;
             DateTimeBring.Value = DateTime.Today;
-            cb_vehicle.SelectedIndex = -1;
-            cb_travel.SelectedIndex = -1;
-            cb_driver.SelectedIndex = -1;
+            cb_vehicle.Text = "";
+            cb_travel.Text = "";
+            cb_driver.Text = "";
+
+            btn_delete.Enabled = false;
+            btn_edit.Enabled = false;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             FieldsCleaning();
         }
+
+      
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -43,6 +44,29 @@ namespace FinalProject
         {
             searchAllTravel();
         }
+
+        public class TravelDatas()
+        {
+            public string TravelId { get; set; }
+            public string VehicleId { get; set; }
+            public string DriverId { get; set; }
+            public string RouteId { get; set; }
+            public string DepartureDate { get; set; }
+            public string ArrivalDate { get; set; }
+            public string Situation { get; set; }
+
+
+            //new Vars
+            public string Model { get; set; }
+            public string Plate { get; set; }
+
+            public string Origin { get; set; }
+            public string path { get; set; }
+            public string name { get; set; }
+            public string cnh { get; set; }
+        }
+
+        public TravelDatas TravelSelected { get; private set; }
 
         private void searchAllTravel()
         {
@@ -87,9 +111,9 @@ namespace FinalProject
                                     m.nome LIKE @Termo OR
                                     v.situacao LIKE @Termo OR
                                     r.origem LIKE @Termo";
-                using (var cmd =  new SQLiteCommand(query, conexao))
+                using (var cmd = new SQLiteCommand(query, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@Termo",txt_search_grid.Text);
+                    cmd.Parameters.AddWithValue("@Termo", txt_search_grid.Text);
 
                     cmd.ExecuteNonQuery();
                     using (var grid = new SQLiteDataAdapter(cmd))
@@ -99,11 +123,37 @@ namespace FinalProject
                         dataGridView1.DataSource = dt; //atribui o data table ao data grid view
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro");
+            }
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                TravelSelected = new TravelDatas
+                {
+                    path = row.Cells["DESTINO"].Value.ToString(),
+                    cnh = row.Cells["CNH"].Value.ToString(),
+                    name = row.Cells["NOME"].Value.ToString(),
+                    Origin = row.Cells["ORIGEM"].Value.ToString(),
+                    Plate = row.Cells["PLACA"].Value.ToString(),
+                    Model = row.Cells["MODELO"].Value.ToString(),
+                    TravelId = row.Cells["VIAGEMID"].Value.ToString(),
+                    VehicleId = row.Cells["VEICULOID"].Value.ToString(),
+                    DriverId = row.Cells["MOTORISTAID"].Value.ToString(),
+                    RouteId = row.Cells["ROTAID"].Value.ToString(),
+                    DepartureDate = row.Cells["DATA_SAIDA"].Value.ToString(),
+                    ArrivalDate = row.Cells["DATA_CHEGADA"].Value.ToString(),
+                    Situation = row.Cells["SITUACAO"].Value.ToString()
+                };
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }

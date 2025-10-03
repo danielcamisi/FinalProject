@@ -73,6 +73,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(776, 348);
             dataGridView1.TabIndex = 5;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // btn_clear
             // 

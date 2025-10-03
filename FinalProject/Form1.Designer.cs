@@ -84,7 +84,7 @@
             panel1 = new Panel();
             btn_delete = new Button();
             btn_search = new Button();
-            button2 = new Button();
+            btn_edit = new Button();
             btn_save = new Button();
             tabControl1.SuspendLayout();
             CarPage.SuspendLayout();
@@ -149,6 +149,7 @@
             // 
             ID_Vehicle_Txt.Location = new Point(282, 115);
             ID_Vehicle_Txt.Name = "ID_Vehicle_Txt";
+            ID_Vehicle_Txt.ReadOnly = true;
             ID_Vehicle_Txt.Size = new Size(108, 29);
             ID_Vehicle_Txt.TabIndex = 5;
             // 
@@ -299,6 +300,7 @@
             // 
             Txt_Driver_ID.Location = new Point(288, 172);
             Txt_Driver_ID.Name = "Txt_Driver_ID";
+            Txt_Driver_ID.ReadOnly = true;
             Txt_Driver_ID.Size = new Size(154, 26);
             Txt_Driver_ID.TabIndex = 15;
             // 
@@ -384,6 +386,7 @@
             // 
             Txt_Route_ID.Location = new Point(307, 144);
             Txt_Route_ID.Name = "Txt_Route_ID";
+            Txt_Route_ID.ReadOnly = true;
             Txt_Route_ID.Size = new Size(192, 26);
             Txt_Route_ID.TabIndex = 23;
             // 
@@ -472,6 +475,7 @@
             // 
             Txt_FuelId.Location = new Point(338, 137);
             Txt_FuelId.Name = "Txt_FuelId";
+            Txt_FuelId.ReadOnly = true;
             Txt_FuelId.Size = new Size(141, 26);
             Txt_FuelId.TabIndex = 31;
             // 
@@ -604,6 +608,7 @@
             // 
             Txt_TravelID.Location = new Point(287, 121);
             Txt_TravelID.Name = "Txt_TravelID";
+            Txt_TravelID.ReadOnly = true;
             Txt_TravelID.Size = new Size(103, 26);
             Txt_TravelID.TabIndex = 41;
             // 
@@ -613,7 +618,7 @@
             panel1.BackColor = Color.LightGray;
             panel1.Controls.Add(btn_delete);
             panel1.Controls.Add(btn_search);
-            panel1.Controls.Add(button2);
+            panel1.Controls.Add(btn_edit);
             panel1.Controls.Add(btn_save);
             panel1.Location = new Point(12, 31);
             panel1.Name = "panel1";
@@ -646,16 +651,18 @@
             btn_search.UseVisualStyleBackColor = false;
             btn_search.Click += btn_search_Click;
             // 
-            // button2
+            // btn_edit
             // 
-            button2.BackColor = Color.Transparent;
-            button2.BackgroundImage = (Image)resources.GetObject("button2.BackgroundImage");
-            button2.BackgroundImageLayout = ImageLayout.Stretch;
-            button2.Location = new Point(88, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 84);
-            button2.TabIndex = 1;
-            button2.UseVisualStyleBackColor = false;
+            btn_edit.BackColor = Color.Transparent;
+            btn_edit.BackgroundImage = (Image)resources.GetObject("btn_edit.BackgroundImage");
+            btn_edit.BackgroundImageLayout = ImageLayout.Stretch;
+            btn_edit.Enabled = false;
+            btn_edit.Location = new Point(88, 3);
+            btn_edit.Name = "btn_edit";
+            btn_edit.Size = new Size(75, 84);
+            btn_edit.TabIndex = 1;
+            btn_edit.UseVisualStyleBackColor = false;
+            btn_edit.Click += btn_edit_Click;
             // 
             // btn_save
             // 
@@ -718,7 +725,7 @@
         private Panel panel1;
         private Button btn_delete;
         private Button btn_search;
-        private Button button2;
+        private Button btn_edit;
         private Button btn_save;
         private TextBox Txt_DriverName;
         private TextBox Txt_DriverLicense;

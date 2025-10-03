@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,6 +33,18 @@ namespace FinalProject
         {
             searchAllFuel();
         }
+
+        public class FuelDatas()
+        {
+            public string FuelId { get; set; }
+            public string Type { get; set; }
+            public string Date { get; set; }
+            public string Price { get; set; }
+
+
+        }
+
+        public FuelDatas fuelDataSelected { get; private set; }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -82,6 +95,23 @@ namespace FinalProject
             catch (Exception ex)
             {
                 MessageBox.Show("Erro");
+            }
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                fuelDataSelected = new FuelDatas
+                {
+                    FuelId = row.Cells["PRECOID"].Value.ToString(),
+                    Type = row.Cells["COMBUSTIVEL"].Value.ToString(),
+                    Date = row.Cells["DATA_CONSULTA"].Value.ToString(),
+                    Price = row.Cells["PRECO"].Value.ToString()
+                };
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }
