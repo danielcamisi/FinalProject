@@ -9,7 +9,7 @@ namespace FinalProject
 {
     public static class Connection
     {
-        private static readonly string dbPath = @"C:\Users\daniel.csilva66\Desktop\logistica.db";
+        private static readonly string dbPath = @"C:\Users\daniel.csilva66\Downloads\logistica.db";
 
         public static readonly string connectionString = $"Data Source={dbPath};Version=3;";
 

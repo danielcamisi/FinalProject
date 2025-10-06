@@ -21,6 +21,12 @@ namespace FinalProject
         private void Form4_Load(object sender, EventArgs e)
         {
             searchAllRoutes();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.AllowUserToAddRows = false;
+
+            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         private void Form4_FormClosing(object sender, FormClosingEventArgs e)

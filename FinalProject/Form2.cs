@@ -22,6 +22,12 @@ namespace FinalProject
         private void Form2_Load(object sender, EventArgs e)
         {
             searchDataGridVehicle();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.AllowUserToAddRows = false;
+
+            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         public class VehicleDatas()

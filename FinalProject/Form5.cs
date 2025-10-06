@@ -32,6 +32,12 @@ namespace FinalProject
         private void Form5_Load(object sender, EventArgs e)
         {
             searchAllFuel();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.AllowUserToAddRows = false;
+
+            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         public class FuelDatas()

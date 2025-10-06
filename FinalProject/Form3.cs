@@ -21,6 +21,12 @@ namespace FinalProject
         private void Form3_Load(object sender, EventArgs e)
         {
             searchAllDrivers();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.AllowUserToAddRows = false;
+
+            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         public class DriverDatas()
@@ -53,6 +59,8 @@ namespace FinalProject
         }
         private void searchDriver()
         {
+
+
             try
             {
                 using var conexao = Connection.ObterConexao();

@@ -95,8 +95,10 @@
             Controls.Add(txt_search_grid);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "Form6";
-            Text = "Form6";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Viagens";
             FormClosing += Form6_FormClosing;
             Load += Form6_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

@@ -95,8 +95,10 @@
             Controls.Add(Txt_Search_grid);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "Form2";
-            Text = "Form2";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Veiculos";
             FormClosing += Form2_FormClosing;
             Load += Form2_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

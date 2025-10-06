@@ -91,8 +91,10 @@
             Controls.Add(Txt_search_grid);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "Form4";
-            Text = "Form4";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Rotas";
             FormClosing += Form4_FormClosing;
             Load += Form4_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

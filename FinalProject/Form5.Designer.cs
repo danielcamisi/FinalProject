@@ -95,8 +95,10 @@
             Controls.Add(txt_search_grid);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "Form5";
-            Text = "Form5";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Combustíveis";
             FormClosing += Form5_FormClosing;
             Load += Form5_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

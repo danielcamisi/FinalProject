@@ -15,23 +15,19 @@ namespace FinalProject
     public partial class Form1 : Form
     {
 
-        string dbPath = @"C:\Users\daniel.csilva66\Desktop\logistica.db";
+        string dbPath = @"C:\Users\daniel.csilva66\Downloads\logistica.db";
 
         string connectionString;
         public Form1()
         {
             InitializeComponent();
             connectionString = $"Data Source={dbPath};Version=3;";
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-
-            ConnectDb();
-
-
+        { 
+           ConnectDb();
+           panel1.Width = 2000;
         }
         private void ConnectDb()
         {
@@ -79,9 +75,10 @@ namespace FinalProject
                     using(var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
-                        string updateQuery = "UPDATE VEICULO SET MODELO = @Modelo, CONSUMO_MEDIO = @ConsMedio, CARGA_MAXIMA = @CargaMax WHERE PLACA = @Placa";
+                        string updateQuery = "UPDATE VEICULO SET MODELO = @Modelo, CONSUMO_MEDIO = @ConsMedio, CARGA_MAXIMA = @CargaMax WHERE VEICULOID = @VeiculoID";
                         using (var cmd = new SQLiteCommand(updateQuery, connect))
                         {
+                            cmd.Parameters.AddWithValue("@VeiculoID", ID_Vehicle_Txt.Text);
                             cmd.Parameters.AddWithValue("@Modelo", Txt_Vehicle_Model.Text);
                             cmd.Parameters.AddWithValue("@ConsMedio", Txt_Avarage.Text);
                             cmd.Parameters.AddWithValue("@CargaMax", Txt_Max_Weight.Text);
@@ -90,6 +87,9 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        Txt_Plate.Enabled = true;
+                        MessageBox.Show("Vehicle updated successfully");
+                        FieldsCleaning();
                     }
                 }
                 catch(Exception ex)
@@ -105,9 +105,10 @@ namespace FinalProject
                     using(var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
-                        string updateQuery = "UPDATE MOTORISTA SET NOME = @Nome, TELEFONE = @Phone WHERE CNH = @CNH";
+                        string updateQuery = "UPDATE MOTORISTA SET NOME = @Nome, TELEFONE = @Phone WHERE MOTORISTAID = @MotoristaID";
                         using (var cmd = new SQLiteCommand(updateQuery, connect))
                         {
+                            cmd.Parameters.AddWithValue("@MotoristaID", Txt_Driver_ID.Text);
                             cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
                             cmd.Parameters.AddWithValue("@Phone", Txt_DriverPhone.Text);
                             cmd.Parameters.AddWithValue("@CNH", Txt_DriverLicense.Text);
@@ -115,6 +116,11 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        Txt_DriverLicense.Enabled = true;
+
+
+                        MessageBox.Show("Driver updated successfully");
+                        FieldsCleaning();
                     }
 
                 }
@@ -130,9 +136,10 @@ namespace FinalProject
                     using(var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
-                        string updateQuery = "UPDATE ROTA SET DESTINO = @Destino, DISTANCIA = @Dist WHERE ORIGEM = @Origem";
+                        string updateQuery = "UPDATE ROTA SET DESTINO = @Destino, DISTANCIA = @Dist, ORIGEM = @Origem WHERE ROTAID = @RotaID";
                         using (var cmd = new SQLiteCommand(updateQuery, connect))
                         {
+                            cmd.Parameters.AddWithValue("@RotaID", Txt_Route_ID.Text);
                             cmd.Parameters.AddWithValue("@Destino", Txt_RouteDestiny.Text);
                             cmd.Parameters.AddWithValue("@Dist", Txt_RoutePath.Text);
                             cmd.Parameters.AddWithValue("@Origem", Txt_RouteOrigin.Text);
@@ -140,6 +147,9 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+
+                        MessageBox.Show("Route updated successfully");
+                        FieldsCleaning();
                     }
 
                 }
@@ -155,9 +165,10 @@ namespace FinalProject
                  using(var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
-                        string updateQuery = "UPDATE PRECO_COMBUSTIVEL SET COMBUSTIVEL = @Combustível, PRECO = @Preco, DATA_CONSULTA = @DataConsulta WHERE PRECOID = @Combustivel";
+                        string updateQuery = "UPDATE PRECO_COMBUSTIVEL SET COMBUSTIVEL = @Combustível, PRECO = @Preco, DATA_CONSULTA = @DataConsulta WHERE PRECOID = @PrecoID";
                         using (var cmd = new SQLiteCommand(updateQuery, connect))
                         {
+                            cmd.Parameters.AddWithValue("@PrecoID", Txt_FuelId.Text);
                             cmd.Parameters.AddWithValue("@Combustível", cb_TypeFuel.Text);
                             cmd.Parameters.AddWithValue("@Preco", Txt_FuelPrice.Text);
                             cmd.Parameters.AddWithValue("@DataConsulta", DateTimeFuel.Value.ToString("yyyy-MM-dd"));
@@ -166,6 +177,9 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+
+                        MessageBox.Show("Fuel updated successfully");
+                        FieldsCleaning();
                     }
 
                 }
@@ -193,6 +207,10 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Viagem", Txt_TravelID.Text);
                             cmd.ExecuteNonQuery();
                         }
+                        btn_delete.Enabled = false;
+                        btn_edit.Enabled = false;
+                        MessageBox.Show("Journey updated successfully");
+                        FieldsCleaning();
                     }
 
                     }catch(Exception ex)
@@ -214,15 +232,19 @@ namespace FinalProject
                     using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
-                        string deleteQuery = "DELETE FROM VEICULO WHERE PLACA = @Placa";
+                        string deleteQuery = "DELETE FROM VEICULO WHERE VEICULOID = @VeiculoID";
                         using (var cmd = new SQLiteCommand(deleteQuery, connect))
                         {
+                            cmd.Parameters.AddWithValue("@VeiculoID", ID_Vehicle_Txt.Text);
                             cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
                             cmd.ExecuteNonQuery();
                         }
 
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        Txt_Plate.Enabled = true;
+                        MessageBox.Show("Vehicle deleted successfully");
+                        FieldsCleaning();
                     }
 
                 }
@@ -241,11 +263,14 @@ namespace FinalProject
                         string deleteQuery = "DELETE FROM MOTORISTA WHERE CNH = @CNH";
                         using (var cmd = new SQLiteCommand(deleteQuery, connect))
                         {
-                            cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
+                            cmd.Parameters.AddWithValue("@CNH", Txt_Plate.Text);
                             cmd.ExecuteNonQuery();
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        Txt_DriverLicense.Enabled = true;
+                        MessageBox.Show("Driver deleted successfully");
+                        FieldsCleaning();
                     }
                 }
                 catch (Exception ex)
@@ -268,6 +293,8 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        MessageBox.Show("Route deleted successfully");
+                        FieldsCleaning();
                     }
                 }
                 catch (Exception ex)
@@ -290,6 +317,8 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        MessageBox.Show("Fuel deleted successfully");
+                        FieldsCleaning();
                     }
 
                 }
@@ -313,6 +342,8 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
+                        MessageBox.Show("Journey deleted successfully");
+                        FieldsCleaning();
                     }
                 }
                 catch (Exception ex)
@@ -398,6 +429,7 @@ namespace FinalProject
                             DataBridgeVehicle(vehicle);
                             btn_delete.Enabled = true;
                             btn_edit.Enabled = true;
+                            Txt_Plate.Enabled = false;
                         }
                     }
                     else
@@ -420,6 +452,8 @@ namespace FinalProject
                             DataBridgeDriver(driver);
                             btn_delete.Enabled = true;
                             btn_edit.Enabled = true;
+                            Txt_DriverLicense.Enabled = false;
+
                         }
                     }
 
@@ -486,6 +520,13 @@ namespace FinalProject
 
             if (indice == 0)
             {
+
+                if (Txt_Vehicle_Model.Text.Length == 0 || Txt_Plate.Text.Length == 0 || Txt_Avarage.Text.Length == 0 || Txt_Max_Weight.Text.Length == 0 )
+                {
+                    MessageBox.Show("Please fill in all fields.");
+                    return;
+                }
+
                 try
                 {
                     using (var connect = new SQLiteConnection(connectionString))
@@ -504,6 +545,7 @@ namespace FinalProject
                         }
                     }
                     MessageBox.Show("Vehicle data saved successfully!");
+                    FieldsCleaning();
                 }
                 catch (Exception ex)
                 {
@@ -530,6 +572,7 @@ namespace FinalProject
                         }
                     }
                     MessageBox.Show("Driver Saved Successfully!");
+                    FieldsCleaning();
                 }
                 catch (Exception ex)
                 {
@@ -540,6 +583,12 @@ namespace FinalProject
             {
                 try
                 {
+                    if(Txt_RouteOrigin.Text.Length == 0 || Txt_RouteDestiny.Text.Length == 0 || Txt_RoutePath.Text.Length == 0)
+                    {
+                        MessageBox.Show("Please fill in all fields.");
+                        return;
+                    }
+
                     using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
@@ -555,6 +604,7 @@ namespace FinalProject
                         }
                     }
                     MessageBox.Show("Route Saved Successfully!");
+                    FieldsCleaning();
                 }
                 catch (Exception ex)
                 {
@@ -563,6 +613,21 @@ namespace FinalProject
             }
             else if (indice == 3)
             {
+
+                if(cb_TypeFuel.SelectedIndex == -1 || Txt_FuelPrice.Text.Length == 0)
+                {
+                    MessageBox.Show("Please fill in all fields.");
+                    return;
+                }
+
+                DateTime dataConsulta = DateTimeFuel.Value;
+                DateTime dataHoje = DateTime.Today;
+
+                if(dataConsulta != dataHoje)
+                {
+                    MessageBox.Show("The consultation date must be today's date.");
+                    return;
+                }
                 try
                 {
                     using (var connect = new SQLiteConnection(connectionString))
@@ -580,6 +645,7 @@ namespace FinalProject
                         }
                     }
                     MessageBox.Show("Fuel Price Was Saved Successfully!");
+                    FieldsCleaning();
                 }
                 catch (Exception ex)
                 {
@@ -589,6 +655,28 @@ namespace FinalProject
             }
             else if (indice == 4)
             {
+
+                if(cb_vehicle.SelectedIndex == -1 || cb_travel.SelectedIndex == -1 || cb_driver.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Please select a vehicle, route, and driver.");
+                    return;
+                }
+
+                DateTime DataSaida = DateTimeStartTravel.Value;
+                DateTime DataChegada = DateTimeBring.Value;
+
+                DateTime Hoje = DateTime.Today;
+
+                if(DataSaida < Hoje)
+                {
+                    MessageBox.Show("Departure date cannot be earlier than today.");
+                    return;
+                }else if(DataChegada < DataSaida)
+                {
+                    MessageBox.Show("Arrival date cannot be earlier than departure date.");
+                    return;
+                }
+
                 try
                 {
                     using (var connect = new SQLiteConnection(connectionString))
@@ -609,7 +697,9 @@ namespace FinalProject
                             cmd.ExecuteNonQuery();
                         }
                     }
+                    
                     MessageBox.Show("New Journey Was Saved Successfully!");
+                    FieldsCleaning();
                 }
                 catch (Exception ex)
                 {
