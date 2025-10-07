@@ -38,6 +38,7 @@
             // 
             // button1
             // 
+            button1.ForeColor = Color.Green;
             button1.Location = new Point(160, 48);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
@@ -67,6 +68,7 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.BackgroundColor = Color.White;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 86);
             dataGridView1.Name = "dataGridView1";
@@ -77,6 +79,7 @@
             // 
             // btn_clear
             // 
+            btn_clear.ForeColor = Color.FromArgb(255, 128, 0);
             btn_clear.Location = new Point(241, 48);
             btn_clear.Name = "btn_clear";
             btn_clear.Size = new Size(75, 23);

@@ -36,17 +36,18 @@
             label5 = new Label();
             ID_Vehicle_Txt = new TextBox();
             Txt_Vehicle_Model = new TextBox();
-            Txt_Plate = new TextBox();
             Txt_Avarage = new TextBox();
-            Txt_Max_Weight = new TextBox();
             tabControl1 = new TabControl();
             CarPage = new TabPage();
+            txtmsk_plate = new MaskedTextBox();
+            Txt_Max_Weight = new TextBox();
             DriverPage = new TabPage();
+            label24 = new Label();
+            txtmsk_phone = new MaskedTextBox();
+            txtmsk_driverlicense = new MaskedTextBox();
             Txt_DriverName = new TextBox();
-            Txt_DriverLicense = new TextBox();
             label6 = new Label();
             label7 = new Label();
-            Txt_DriverPhone = new TextBox();
             label8 = new Label();
             label9 = new Label();
             Txt_Driver_ID = new TextBox();
@@ -60,18 +61,19 @@
             label13 = new Label();
             Txt_Route_ID = new TextBox();
             FuelPage = new TabPage();
+            txtmsk_fuelprice = new MaskedTextBox();
             cb_TypeFuel = new ComboBox();
             DateTimeFuel = new DateTimePicker();
             label14 = new Label();
             label15 = new Label();
-            Txt_FuelPrice = new TextBox();
             label16 = new Label();
             label17 = new Label();
             Txt_FuelId = new TextBox();
             TravelPage = new TabPage();
+            cb_situation = new ComboBox();
+            cb_travel = new ComboBox();
             cb_driver = new ComboBox();
             label23 = new Label();
-            cb_travel = new ComboBox();
             label22 = new Label();
             cb_vehicle = new ComboBox();
             DateTimeStartTravel = new DateTimePicker();
@@ -86,6 +88,7 @@
             btn_search = new Button();
             btn_edit = new Button();
             btn_save = new Button();
+            label25 = new Label();
             tabControl1.SuspendLayout();
             CarPage.SuspendLayout();
             DriverPage.SuspendLayout();
@@ -160,26 +163,13 @@
             Txt_Vehicle_Model.Size = new Size(154, 29);
             Txt_Vehicle_Model.TabIndex = 6;
             // 
-            // Txt_Plate
-            // 
-            Txt_Plate.Location = new Point(325, 271);
-            Txt_Plate.Name = "Txt_Plate";
-            Txt_Plate.Size = new Size(154, 29);
-            Txt_Plate.TabIndex = 7;
-            // 
             // Txt_Avarage
             // 
             Txt_Avarage.Location = new Point(325, 324);
+            Txt_Avarage.MaxLength = 4;
             Txt_Avarage.Name = "Txt_Avarage";
             Txt_Avarage.Size = new Size(154, 29);
             Txt_Avarage.TabIndex = 8;
-            // 
-            // Txt_Max_Weight
-            // 
-            Txt_Max_Weight.Location = new Point(325, 374);
-            Txt_Max_Weight.Name = "Txt_Max_Weight";
-            Txt_Max_Weight.Size = new Size(154, 29);
-            Txt_Max_Weight.TabIndex = 9;
             // 
             // tabControl1
             // 
@@ -200,8 +190,8 @@
             // CarPage
             // 
             CarPage.BackColor = SystemColors.Control;
+            CarPage.Controls.Add(txtmsk_plate);
             CarPage.Controls.Add(Txt_Vehicle_Model);
-            CarPage.Controls.Add(Txt_Plate);
             CarPage.Controls.Add(label1);
             CarPage.Controls.Add(Txt_Max_Weight);
             CarPage.Controls.Add(label2);
@@ -218,14 +208,30 @@
             CarPage.TabIndex = 0;
             CarPage.Text = "Veículo";
             // 
+            // txtmsk_plate
+            // 
+            txtmsk_plate.Location = new Point(325, 271);
+            txtmsk_plate.Mask = "AAA-0A00";
+            txtmsk_plate.Name = "txtmsk_plate";
+            txtmsk_plate.Size = new Size(154, 29);
+            txtmsk_plate.TabIndex = 10;
+            // 
+            // Txt_Max_Weight
+            // 
+            Txt_Max_Weight.Location = new Point(325, 374);
+            Txt_Max_Weight.Name = "Txt_Max_Weight";
+            Txt_Max_Weight.Size = new Size(154, 29);
+            Txt_Max_Weight.TabIndex = 9;
+            // 
             // DriverPage
             // 
             DriverPage.BackColor = SystemColors.Control;
+            DriverPage.Controls.Add(label24);
+            DriverPage.Controls.Add(txtmsk_phone);
+            DriverPage.Controls.Add(txtmsk_driverlicense);
             DriverPage.Controls.Add(Txt_DriverName);
-            DriverPage.Controls.Add(Txt_DriverLicense);
             DriverPage.Controls.Add(label6);
             DriverPage.Controls.Add(label7);
-            DriverPage.Controls.Add(Txt_DriverPhone);
             DriverPage.Controls.Add(label8);
             DriverPage.Controls.Add(label9);
             DriverPage.Controls.Add(Txt_Driver_ID);
@@ -237,19 +243,39 @@
             DriverPage.TabIndex = 1;
             DriverPage.Text = "Motorista";
             // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Arial Narrow", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label24.ForeColor = Color.Coral;
+            label24.Location = new Point(313, 307);
+            label24.Name = "label24";
+            label24.Size = new Size(101, 15);
+            label24.TabIndex = 19;
+            label24.Text = "Categoria após o barra";
+            // 
+            // txtmsk_phone
+            // 
+            txtmsk_phone.Location = new Point(313, 328);
+            txtmsk_phone.Mask = "(00) 99999-9999";
+            txtmsk_phone.Name = "txtmsk_phone";
+            txtmsk_phone.Size = new Size(167, 29);
+            txtmsk_phone.TabIndex = 18;
+            // 
+            // txtmsk_driverlicense
+            // 
+            txtmsk_driverlicense.Location = new Point(313, 275);
+            txtmsk_driverlicense.Mask = "00000000000/AA";
+            txtmsk_driverlicense.Name = "txtmsk_driverlicense";
+            txtmsk_driverlicense.Size = new Size(167, 29);
+            txtmsk_driverlicense.TabIndex = 17;
+            // 
             // Txt_DriverName
             // 
             Txt_DriverName.Location = new Point(313, 229);
             Txt_DriverName.Name = "Txt_DriverName";
-            Txt_DriverName.Size = new Size(154, 29);
+            Txt_DriverName.Size = new Size(167, 29);
             Txt_DriverName.TabIndex = 16;
-            // 
-            // Txt_DriverLicense
-            // 
-            Txt_DriverLicense.Location = new Point(313, 278);
-            Txt_DriverLicense.Name = "Txt_DriverLicense";
-            Txt_DriverLicense.Size = new Size(154, 29);
-            Txt_DriverLicense.TabIndex = 17;
             // 
             // label6
             // 
@@ -270,13 +296,6 @@
             label7.Size = new Size(175, 22);
             label7.TabIndex = 11;
             label7.Text = "Nome do Motorista:";
-            // 
-            // Txt_DriverPhone
-            // 
-            Txt_DriverPhone.Location = new Point(313, 330);
-            Txt_DriverPhone.Name = "Txt_DriverPhone";
-            Txt_DriverPhone.Size = new Size(154, 29);
-            Txt_DriverPhone.TabIndex = 18;
             // 
             // label8
             // 
@@ -303,7 +322,7 @@
             Txt_Driver_ID.Location = new Point(313, 179);
             Txt_Driver_ID.Name = "Txt_Driver_ID";
             Txt_Driver_ID.ReadOnly = true;
-            Txt_Driver_ID.Size = new Size(154, 29);
+            Txt_Driver_ID.Size = new Size(167, 29);
             Txt_Driver_ID.TabIndex = 15;
             // 
             // RoutePage
@@ -396,11 +415,11 @@
             // FuelPage
             // 
             FuelPage.BackColor = SystemColors.Control;
+            FuelPage.Controls.Add(txtmsk_fuelprice);
             FuelPage.Controls.Add(cb_TypeFuel);
             FuelPage.Controls.Add(DateTimeFuel);
             FuelPage.Controls.Add(label14);
             FuelPage.Controls.Add(label15);
-            FuelPage.Controls.Add(Txt_FuelPrice);
             FuelPage.Controls.Add(label16);
             FuelPage.Controls.Add(label17);
             FuelPage.Controls.Add(Txt_FuelId);
@@ -411,8 +430,17 @@
             FuelPage.TabIndex = 3;
             FuelPage.Text = "Preço Combustível";
             // 
+            // txtmsk_fuelprice
+            // 
+            txtmsk_fuelprice.Location = new Point(342, 331);
+            txtmsk_fuelprice.Mask = "$ 00,00";
+            txtmsk_fuelprice.Name = "txtmsk_fuelprice";
+            txtmsk_fuelprice.Size = new Size(175, 29);
+            txtmsk_fuelprice.TabIndex = 37;
+            // 
             // cb_TypeFuel
             // 
+            cb_TypeFuel.DropDownStyle = ComboBoxStyle.DropDownList;
             cb_TypeFuel.FormattingEnabled = true;
             cb_TypeFuel.Items.AddRange(new object[] { "Etanol", "Diesel", "Gasolina", "Pódium" });
             cb_TypeFuel.Location = new Point(342, 223);
@@ -424,10 +452,12 @@
             // 
             DateTimeFuel.Format = DateTimePickerFormat.Short;
             DateTimeFuel.Location = new Point(342, 275);
-            DateTimeFuel.MinDate = new DateTime(2025, 10, 6, 0, 0, 0, 0);
+            DateTimeFuel.MaxDate = new DateTime(2025, 10, 7, 0, 0, 0, 0);
+            DateTimeFuel.MinDate = new DateTime(1999, 1, 1, 0, 0, 0, 0);
             DateTimeFuel.Name = "DateTimeFuel";
             DateTimeFuel.Size = new Size(175, 29);
             DateTimeFuel.TabIndex = 35;
+            DateTimeFuel.Value = new DateTime(2025, 10, 7, 0, 0, 0, 0);
             // 
             // label14
             // 
@@ -448,13 +478,6 @@
             label15.Size = new Size(232, 22);
             label15.TabIndex = 28;
             label15.Text = "Combustível de Precomb:";
-            // 
-            // Txt_FuelPrice
-            // 
-            Txt_FuelPrice.Location = new Point(342, 330);
-            Txt_FuelPrice.Name = "Txt_FuelPrice";
-            Txt_FuelPrice.Size = new Size(175, 29);
-            Txt_FuelPrice.TabIndex = 34;
             // 
             // label16
             // 
@@ -487,9 +510,11 @@
             // TravelPage
             // 
             TravelPage.BackColor = SystemColors.Control;
+            TravelPage.Controls.Add(label25);
+            TravelPage.Controls.Add(cb_situation);
+            TravelPage.Controls.Add(cb_travel);
             TravelPage.Controls.Add(cb_driver);
             TravelPage.Controls.Add(label23);
-            TravelPage.Controls.Add(cb_travel);
             TravelPage.Controls.Add(label22);
             TravelPage.Controls.Add(cb_vehicle);
             TravelPage.Controls.Add(DateTimeStartTravel);
@@ -506,12 +531,32 @@
             TravelPage.TabIndex = 4;
             TravelPage.Text = "Viagem";
             // 
+            // cb_situation
+            // 
+            cb_situation.DropDownStyle = ComboBoxStyle.DropDownList;
+            cb_situation.FormattingEnabled = true;
+            cb_situation.Items.AddRange(new object[] { "Em Agendamento", "Em Andamento", "Recluso", "Entregue", "Cancelado" });
+            cb_situation.Location = new Point(629, 136);
+            cb_situation.Name = "cb_situation";
+            cb_situation.Size = new Size(221, 30);
+            cb_situation.TabIndex = 51;
+            // 
+            // cb_travel
+            // 
+            cb_travel.DropDownStyle = ComboBoxStyle.DropDownList;
+            cb_travel.FormattingEnabled = true;
+            cb_travel.Location = new Point(350, 339);
+            cb_travel.Name = "cb_travel";
+            cb_travel.Size = new Size(500, 30);
+            cb_travel.TabIndex = 50;
+            // 
             // cb_driver
             // 
+            cb_driver.DropDownStyle = ComboBoxStyle.DropDownList;
             cb_driver.FormattingEnabled = true;
             cb_driver.Location = new Point(350, 392);
             cb_driver.Name = "cb_driver";
-            cb_driver.Size = new Size(193, 30);
+            cb_driver.Size = new Size(500, 30);
             cb_driver.TabIndex = 49;
             cb_driver.DropDown += comboBox4_DropDown;
             // 
@@ -525,16 +570,6 @@
             label23.TabIndex = 48;
             label23.Text = "Motorista:";
             // 
-            // cb_travel
-            // 
-            cb_travel.FormattingEnabled = true;
-            cb_travel.Items.AddRange(new object[] { "" });
-            cb_travel.Location = new Point(350, 342);
-            cb_travel.Name = "cb_travel";
-            cb_travel.Size = new Size(500, 30);
-            cb_travel.TabIndex = 47;
-            cb_travel.DropDown += comboBox3_DropDown;
-            // 
             // label22
             // 
             label22.AutoSize = true;
@@ -547,10 +582,11 @@
             // 
             // cb_vehicle
             // 
+            cb_vehicle.DropDownStyle = ComboBoxStyle.DropDownList;
             cb_vehicle.FormattingEnabled = true;
             cb_vehicle.Location = new Point(350, 289);
             cb_vehicle.Name = "cb_vehicle";
-            cb_vehicle.Size = new Size(193, 30);
+            cb_vehicle.Size = new Size(500, 30);
             cb_vehicle.TabIndex = 45;
             cb_vehicle.DropDown += comboBox2_DropDown;
             // 
@@ -686,6 +722,15 @@
             btn_save.UseVisualStyleBackColor = false;
             btn_save.Click += btn_save_Click;
             // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(555, 139);
+            label25.Name = "label25";
+            label25.Size = new Size(68, 22);
+            label25.TabIndex = 52;
+            label25.Text = "Status:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -698,6 +743,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestão de Logística";
             WindowState = FormWindowState.Maximized;
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             tabControl1.ResumeLayout(false);
             CarPage.ResumeLayout(false);
@@ -724,9 +770,7 @@
         private Label label5;
         private TextBox ID_Vehicle_Txt;
         private TextBox Txt_Vehicle_Model;
-        private TextBox Txt_Plate;
         private TextBox Txt_Avarage;
-        private TextBox Txt_Max_Weight;
         private TabControl tabControl1;
         private TabPage CarPage;
         private TabPage DriverPage;
@@ -739,10 +783,8 @@
         private Button btn_edit;
         private Button btn_save;
         private TextBox Txt_DriverName;
-        private TextBox Txt_DriverLicense;
         private Label label6;
         private Label label7;
-        private TextBox Txt_DriverPhone;
         private Label label8;
         private Label label9;
         private TextBox Txt_Driver_ID;
@@ -756,7 +798,6 @@
         private TextBox Txt_Route_ID;
         private Label label14;
         private Label label15;
-        private TextBox Txt_FuelPrice;
         private Label label16;
         private Label label17;
         private TextBox Txt_FuelId;
@@ -771,8 +812,16 @@
         private DateTimePicker DateTimeStartTravel;
         private ComboBox cb_driver;
         private Label label23;
-        private ComboBox cb_travel;
         private Label label22;
         private ComboBox cb_vehicle;
+        private MaskedTextBox txtmsk_plate;
+        private TextBox Txt_Max_Weight;
+        private MaskedTextBox txtmsk_phone;
+        private MaskedTextBox txtmsk_driverlicense;
+        private Label label24;
+        private ComboBox cb_travel;
+        private MaskedTextBox txtmsk_fuelprice;
+        private ComboBox cb_situation;
+        private Label label25;
     }
 }

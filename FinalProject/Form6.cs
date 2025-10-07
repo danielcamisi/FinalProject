@@ -64,6 +64,7 @@ namespace FinalProject
             public string path { get; set; }
             public string name { get; set; }
             public string cnh { get; set; }
+
         }
 
         public TravelDatas TravelSelected { get; private set; }

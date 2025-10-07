@@ -38,16 +38,19 @@
             // 
             // btn_reset
             // 
+            btn_reset.BackColor = Color.Transparent;
+            btn_reset.ForeColor = Color.FromArgb(255, 128, 0);
             btn_reset.Location = new Point(241, 48);
             btn_reset.Name = "btn_reset";
             btn_reset.Size = new Size(75, 23);
             btn_reset.TabIndex = 9;
             btn_reset.Text = "Resetar";
-            btn_reset.UseVisualStyleBackColor = true;
+            btn_reset.UseVisualStyleBackColor = false;
             btn_reset.Click += btn_reset_Click;
             // 
             // btn_search
             // 
+            btn_search.ForeColor = Color.Green;
             btn_search.Location = new Point(160, 48);
             btn_search.Name = "btn_search";
             btn_search.Size = new Size(75, 23);
@@ -77,6 +80,7 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.BackgroundColor = Color.WhiteSmoke;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 86);
             dataGridView1.Name = "dataGridView1";

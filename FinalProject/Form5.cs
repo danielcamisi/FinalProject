@@ -44,7 +44,7 @@ namespace FinalProject
         {
             public string FuelId { get; set; }
             public string Type { get; set; }
-            public string Date { get; set; }
+            public string DateSearch { get; set; }
             public string Price { get; set; }
 
 
@@ -85,7 +85,7 @@ namespace FinalProject
             try
             {
                 using var conexao = Connection.ObterConexao();
-                string searchQuery = "SELECT * FROM PRECO_COMBUSTIVEL \r\nWHERE TIPO LIKE @Termo  \r\n   OR PRECO_LITRO LIKE @Termo";
+                string searchQuery = "SELECT * FROM PRECO_COMBUSTIVEL \r\nWHERE COMBUSTIVEL LIKE @Termo  \r\n   OR PRECO LIKE @Termo";
                 using (var cmd = new System.Data.SQLite.SQLiteCommand(searchQuery, conexao))
                 {
                     cmd.Parameters.AddWithValue("@Termo", txt_search_grid.Text);
@@ -113,7 +113,7 @@ namespace FinalProject
                 {
                     FuelId = row.Cells["PRECOID"].Value.ToString(),
                     Type = row.Cells["COMBUSTIVEL"].Value.ToString(),
-                    Date = row.Cells["DATA_CONSULTA"].Value.ToString(),
+                    DateSearch = row.Cells["DATA_CONSULTA"].Value.ToString(),
                     Price = row.Cells["PRECO"].Value.ToString()
                 };
                 this.DialogResult = DialogResult.OK;

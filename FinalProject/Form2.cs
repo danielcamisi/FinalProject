@@ -95,7 +95,6 @@ namespace FinalProject
                 conexao.Close();
             }
             Application.OpenForms["Form1"].Show();
-
         }
 
         private void button1_Click(object sender, EventArgs e)

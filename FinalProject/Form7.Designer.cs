@@ -30,23 +30,23 @@
         {
             tabControl1 = new TabControl();
             Login = new TabPage();
-            Register = new TabPage();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            txt_pword = new TextBox();
+            txt_email = new TextBox();
             btn_login = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            txt_name = new TextBox();
-            txt_emailregister = new TextBox();
-            txt_registerpword = new TextBox();
-            txt_confirmpword = new TextBox();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            Register = new TabPage();
             btn_register = new Button();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            txt_confirmpword = new TextBox();
+            txt_registerpword = new TextBox();
+            txt_emailregister = new TextBox();
+            txt_name = new TextBox();
             tabControl1.SuspendLayout();
             Login.SuspendLayout();
             Register.SuspendLayout();
@@ -64,8 +64,8 @@
             // 
             // Login
             // 
-            Login.Controls.Add(textBox2);
-            Login.Controls.Add(textBox1);
+            Login.Controls.Add(txt_pword);
+            Login.Controls.Add(txt_email);
             Login.Controls.Add(btn_login);
             Login.Controls.Add(label3);
             Login.Controls.Add(label2);
@@ -77,6 +77,59 @@
             Login.TabIndex = 0;
             Login.Text = "Entrar";
             Login.UseVisualStyleBackColor = true;
+            // 
+            // txt_pword
+            // 
+            txt_pword.Location = new Point(142, 331);
+            txt_pword.Name = "txt_pword";
+            txt_pword.Size = new Size(211, 23);
+            txt_pword.TabIndex = 5;
+            txt_pword.UseSystemPasswordChar = true;
+            // 
+            // txt_email
+            // 
+            txt_email.Location = new Point(142, 250);
+            txt_email.Name = "txt_email";
+            txt_email.Size = new Size(211, 23);
+            txt_email.TabIndex = 4;
+            // 
+            // btn_login
+            // 
+            btn_login.Location = new Point(198, 407);
+            btn_login.Name = "btn_login";
+            btn_login.Size = new Size(101, 43);
+            btn_login.TabIndex = 3;
+            btn_login.Text = "Entrar";
+            btn_login.UseVisualStyleBackColor = true;
+            btn_login.Click += btn_login_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(142, 302);
+            label3.Name = "label3";
+            label3.Size = new Size(42, 15);
+            label3.TabIndex = 2;
+            label3.Text = "Senha:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(142, 223);
+            label2.Name = "label2";
+            label2.Size = new Size(39, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Email:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(198, 136);
+            label1.Name = "label1";
+            label1.Size = new Size(101, 40);
+            label1.TabIndex = 0;
+            label1.Text = "Entrar";
             // 
             // Register
             // 
@@ -98,84 +151,51 @@
             Register.Text = "Cadastrar";
             Register.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // btn_register
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(198, 136);
-            label1.Name = "label1";
-            label1.Size = new Size(101, 40);
-            label1.TabIndex = 0;
-            label1.Text = "Entrar";
+            btn_register.Location = new Point(211, 459);
+            btn_register.Name = "btn_register";
+            btn_register.Size = new Size(95, 49);
+            btn_register.TabIndex = 9;
+            btn_register.Text = "Cadastrar";
+            btn_register.UseVisualStyleBackColor = true;
+            btn_register.Click += btn_register_Click;
             // 
-            // label2
+            // label8
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(142, 223);
-            label2.Name = "label2";
-            label2.Size = new Size(39, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Email:";
+            label8.AutoSize = true;
+            label8.Location = new Point(166, 387);
+            label8.Name = "label8";
+            label8.Size = new Size(116, 15);
+            label8.TabIndex = 8;
+            label8.Text = "Confirme sua Senha:";
             // 
-            // label3
+            // label7
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(142, 302);
-            label3.Name = "label3";
-            label3.Size = new Size(42, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Senha:";
+            label7.AutoSize = true;
+            label7.Location = new Point(166, 325);
+            label7.Name = "label7";
+            label7.Size = new Size(42, 15);
+            label7.TabIndex = 7;
+            label7.Text = "Senha:";
             // 
-            // btn_login
+            // label6
             // 
-            btn_login.Location = new Point(198, 407);
-            btn_login.Name = "btn_login";
-            btn_login.Size = new Size(101, 43);
-            btn_login.TabIndex = 3;
-            btn_login.Text = "Entrar";
-            btn_login.UseVisualStyleBackColor = true;
+            label6.AutoSize = true;
+            label6.Location = new Point(166, 260);
+            label6.Name = "label6";
+            label6.Size = new Size(39, 15);
+            label6.TabIndex = 6;
+            label6.Text = "Email:";
             // 
-            // textBox1
+            // label5
             // 
-            textBox1.Location = new Point(142, 250);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(211, 23);
-            textBox1.TabIndex = 4;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(142, 331);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(211, 23);
-            textBox2.TabIndex = 5;
-            // 
-            // txt_name
-            // 
-            txt_name.Location = new Point(166, 220);
-            txt_name.Name = "txt_name";
-            txt_name.Size = new Size(177, 23);
-            txt_name.TabIndex = 0;
-            // 
-            // txt_emailregister
-            // 
-            txt_emailregister.Location = new Point(166, 288);
-            txt_emailregister.Name = "txt_emailregister";
-            txt_emailregister.Size = new Size(177, 23);
-            txt_emailregister.TabIndex = 1;
-            // 
-            // txt_registerpword
-            // 
-            txt_registerpword.Location = new Point(166, 343);
-            txt_registerpword.Name = "txt_registerpword";
-            txt_registerpword.Size = new Size(177, 23);
-            txt_registerpword.TabIndex = 2;
-            // 
-            // txt_confirmpword
-            // 
-            txt_confirmpword.Location = new Point(166, 405);
-            txt_confirmpword.Name = "txt_confirmpword";
-            txt_confirmpword.Size = new Size(177, 23);
-            txt_confirmpword.TabIndex = 3;
+            label5.AutoSize = true;
+            label5.Location = new Point(166, 193);
+            label5.Name = "label5";
+            label5.Size = new Size(43, 15);
+            label5.TabIndex = 5;
+            label5.Text = "Nome:";
             // 
             // label4
             // 
@@ -187,50 +207,35 @@
             label4.TabIndex = 4;
             label4.Text = "Cadastrar";
             // 
-            // label5
+            // txt_confirmpword
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(166, 193);
-            label5.Name = "label5";
-            label5.Size = new Size(43, 15);
-            label5.TabIndex = 5;
-            label5.Text = "Nome:";
+            txt_confirmpword.Location = new Point(166, 405);
+            txt_confirmpword.Name = "txt_confirmpword";
+            txt_confirmpword.Size = new Size(177, 23);
+            txt_confirmpword.TabIndex = 3;
+            txt_confirmpword.UseSystemPasswordChar = true;
             // 
-            // label6
+            // txt_registerpword
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(166, 260);
-            label6.Name = "label6";
-            label6.Size = new Size(39, 15);
-            label6.TabIndex = 6;
-            label6.Text = "Email:";
+            txt_registerpword.Location = new Point(166, 343);
+            txt_registerpword.Name = "txt_registerpword";
+            txt_registerpword.Size = new Size(177, 23);
+            txt_registerpword.TabIndex = 2;
+            txt_registerpword.UseSystemPasswordChar = true;
             // 
-            // label7
+            // txt_emailregister
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(166, 325);
-            label7.Name = "label7";
-            label7.Size = new Size(42, 15);
-            label7.TabIndex = 7;
-            label7.Text = "Senha:";
+            txt_emailregister.Location = new Point(166, 288);
+            txt_emailregister.Name = "txt_emailregister";
+            txt_emailregister.Size = new Size(177, 23);
+            txt_emailregister.TabIndex = 1;
             // 
-            // label8
+            // txt_name
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(166, 387);
-            label8.Name = "label8";
-            label8.Size = new Size(116, 15);
-            label8.TabIndex = 8;
-            label8.Text = "Confirme sua Senha:";
-            // 
-            // btn_register
-            // 
-            btn_register.Location = new Point(211, 459);
-            btn_register.Name = "btn_register";
-            btn_register.Size = new Size(95, 49);
-            btn_register.TabIndex = 9;
-            btn_register.Text = "Cadastrar";
-            btn_register.UseVisualStyleBackColor = true;
+            txt_name.Location = new Point(166, 220);
+            txt_name.Name = "txt_name";
+            txt_name.Size = new Size(177, 23);
+            txt_name.TabIndex = 0;
             // 
             // Form7
             // 
@@ -239,6 +244,7 @@
             ClientSize = new Size(529, 677);
             Controls.Add(tabControl1);
             Name = "Form7";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Bem-Vindo Gestão de Logística";
             tabControl1.ResumeLayout(false);
             Login.ResumeLayout(false);
@@ -257,8 +263,8 @@
         private Button btn_login;
         private Label label3;
         private Label label2;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txt_pword;
+        private TextBox txt_email;
         private Button btn_register;
         private Label label8;
         private Label label7;

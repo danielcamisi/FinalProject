@@ -25,9 +25,12 @@ namespace FinalProject
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        { 
-           ConnectDb();
-           panel1.Width = 2000;
+        {
+            ConnectDb();
+            searchDriver();
+            searchRoute();
+            searchVehicle();
+            panel1.Width = 2000;
         }
         private void ConnectDb()
         {
@@ -36,7 +39,6 @@ namespace FinalProject
                 using (var connect = new SQLiteConnection(connectionString))
                 {
                     connect.Open();
-                    MessageBox.Show("Database connected successfully!");
                 }
             }
             catch (Exception ex)
@@ -70,9 +72,31 @@ namespace FinalProject
             int indice = tabControl1.SelectedIndex;
             if (indice == 0)
             {
+                if (!double.TryParse(Txt_Avarage.Text.Replace(",", "."),
+                  System.Globalization.NumberStyles.Any,
+                  System.Globalization.CultureInfo.InvariantCulture, out _))
+                {
+                    MessageBox.Show("Digite um número válido (ex: 12,5 ou 12.5).");
+                    return;
+                }
+
+                if (!double.TryParse(Txt_Max_Weight.Text.Replace(",", "."),
+                  System.Globalization.NumberStyles.Any,
+                  System.Globalization.CultureInfo.InvariantCulture, out _))
+                {
+                    MessageBox.Show("Digite um número válido (ex: 3000,5 ou 3000.5).");
+                    return;
+                }
+
+
+                if (Txt_Vehicle_Model.Text.Length == 0 || txtmsk_plate.Text.Length == 0 || Txt_Avarage.Text.Length == 0 || Txt_Max_Weight.Text.Length == 0)
+                {
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 try
                 {
-                    using(var connect = new SQLiteConnection(connectionString))
+                    using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
                         string updateQuery = "UPDATE VEICULO SET MODELO = @Modelo, CONSUMO_MEDIO = @ConsMedio, CARGA_MAXIMA = @CargaMax WHERE VEICULOID = @VeiculoID";
@@ -82,17 +106,17 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Modelo", Txt_Vehicle_Model.Text);
                             cmd.Parameters.AddWithValue("@ConsMedio", Txt_Avarage.Text);
                             cmd.Parameters.AddWithValue("@CargaMax", Txt_Max_Weight.Text);
-                            cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
+                            cmd.Parameters.AddWithValue("@Placa", txtmsk_plate.Text);
                             cmd.ExecuteNonQuery();
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        Txt_Plate.Enabled = true;
-                        MessageBox.Show("Vehicle updated successfully");
+                        txtmsk_plate.Enabled = true;
+                        MessageBox.Show("Veículo editado com Sucesso!");
                         FieldsCleaning();
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
@@ -100,9 +124,15 @@ namespace FinalProject
             }
             else if (indice == 1)
             {
+
+                if (Txt_DriverName.Text.Length == 0 || txtmsk_driverlicense.Text.Length == 0 || txtmsk_phone.Text.Length == 0)
+                {
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 try
                 {
-                    using(var connect = new SQLiteConnection(connectionString))
+                    using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
                         string updateQuery = "UPDATE MOTORISTA SET NOME = @Nome, TELEFONE = @Phone WHERE MOTORISTAID = @MotoristaID";
@@ -110,30 +140,36 @@ namespace FinalProject
                         {
                             cmd.Parameters.AddWithValue("@MotoristaID", Txt_Driver_ID.Text);
                             cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
-                            cmd.Parameters.AddWithValue("@Phone", Txt_DriverPhone.Text);
-                            cmd.Parameters.AddWithValue("@CNH", Txt_DriverLicense.Text);
+                            cmd.Parameters.AddWithValue("@Phone", txtmsk_phone.Text);
+                            cmd.Parameters.AddWithValue("@CNH", txtmsk_driverlicense.Text);
                             cmd.ExecuteNonQuery();
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        Txt_DriverLicense.Enabled = true;
+                        txtmsk_driverlicense.Enabled = true;
 
 
-                        MessageBox.Show("Driver updated successfully");
+                        MessageBox.Show("Motorista editado com sucesso!");
                         FieldsCleaning();
                     }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
             else if (indice == 2)
             {
+
+                if (Txt_RouteOrigin.Text.Length == 0 || Txt_RouteDestiny.Text.Length == 0 || Txt_RoutePath.Text.Length == 0)
+                {
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 try
                 {
-                    using(var connect = new SQLiteConnection(connectionString))
+                    using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
                         string updateQuery = "UPDATE ROTA SET DESTINO = @Destino, DISTANCIA = @Dist, ORIGEM = @Origem WHERE ROTAID = @RotaID";
@@ -148,21 +184,26 @@ namespace FinalProject
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
 
-                        MessageBox.Show("Route updated successfully");
+                        MessageBox.Show("Rota editada com sucesso");
                         FieldsCleaning();
                     }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
             else if (indice == 3)
             {
+                if (cb_TypeFuel.SelectedIndex == -1 || txtmsk_fuelprice.Text.Length == 0)
+                {
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 try
                 {
-                 using(var connect = new SQLiteConnection(connectionString))
+                    using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
                         string updateQuery = "UPDATE PRECO_COMBUSTIVEL SET COMBUSTIVEL = @Combustível, PRECO = @Preco, DATA_CONSULTA = @DataConsulta WHERE PRECOID = @PrecoID";
@@ -170,7 +211,7 @@ namespace FinalProject
                         {
                             cmd.Parameters.AddWithValue("@PrecoID", Txt_FuelId.Text);
                             cmd.Parameters.AddWithValue("@Combustível", cb_TypeFuel.Text);
-                            cmd.Parameters.AddWithValue("@Preco", Txt_FuelPrice.Text);
+                            cmd.Parameters.AddWithValue("@Preco", txtmsk_fuelprice.Text);
                             cmd.Parameters.AddWithValue("@DataConsulta", DateTimeFuel.Value.ToString("yyyy-MM-dd"));
                             cmd.Parameters.AddWithValue("@Combustivel", Txt_FuelId.Text);
                             cmd.ExecuteNonQuery();
@@ -178,12 +219,12 @@ namespace FinalProject
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
 
-                        MessageBox.Show("Fuel updated successfully");
+                        MessageBox.Show("Combustível editado com sucesso");
                         FieldsCleaning();
                     }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
@@ -205,15 +246,42 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Rota", cb_travel.SelectedValue);
                             cmd.Parameters.AddWithValue("@Motorista", cb_driver.SelectedValue);
                             cmd.Parameters.AddWithValue("@Viagem", Txt_TravelID.Text);
+
+
+                            if (cb_situation.SelectedIndex == 0)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Em Agendamento");
+                            }
+                            else if (cb_situation.SelectedIndex == 1)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Em Andamento");
+                            }
+                            else if (cb_situation.SelectedIndex == 2)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Recluso");
+                            }
+                            else if (cb_situation.SelectedIndex == 3)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Entregue");
+                            }
+                            else if (cb_situation.SelectedIndex == 4)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Cancelado");
+                            }
+                            else if (cb_situation.SelectedIndex == -1)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Em Agendamento");
+                            }
                             cmd.ExecuteNonQuery();
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        MessageBox.Show("Journey updated successfully");
+                        MessageBox.Show("Viagem editada com Sucesso");
                         FieldsCleaning();
                     }
 
-                    }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
@@ -236,14 +304,14 @@ namespace FinalProject
                         using (var cmd = new SQLiteCommand(deleteQuery, connect))
                         {
                             cmd.Parameters.AddWithValue("@VeiculoID", ID_Vehicle_Txt.Text);
-                            cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
+                            cmd.Parameters.AddWithValue("@Placa", txtmsk_plate.Text);
                             cmd.ExecuteNonQuery();
                         }
 
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        Txt_Plate.Enabled = true;
-                        MessageBox.Show("Vehicle deleted successfully");
+                        txtmsk_plate.Enabled = true;
+                        MessageBox.Show("Veículo deletado com sucesso!");
                         FieldsCleaning();
                     }
 
@@ -263,13 +331,13 @@ namespace FinalProject
                         string deleteQuery = "DELETE FROM MOTORISTA WHERE CNH = @CNH";
                         using (var cmd = new SQLiteCommand(deleteQuery, connect))
                         {
-                            cmd.Parameters.AddWithValue("@CNH", Txt_Plate.Text);
+                            cmd.Parameters.AddWithValue("@CNH", txtmsk_plate.Text);
                             cmd.ExecuteNonQuery();
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        Txt_DriverLicense.Enabled = true;
-                        MessageBox.Show("Driver deleted successfully");
+                        txtmsk_driverlicense.Enabled = true;
+                        MessageBox.Show("Motorista deletado com sucesso!");
                         FieldsCleaning();
                     }
                 }
@@ -293,7 +361,7 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        MessageBox.Show("Route deleted successfully");
+                        MessageBox.Show("Rota deletada com sucesso!");
                         FieldsCleaning();
                     }
                 }
@@ -317,7 +385,7 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        MessageBox.Show("Fuel deleted successfully");
+                        MessageBox.Show("Preço de combustível deletado com sucesso!");
                         FieldsCleaning();
                     }
 
@@ -342,7 +410,7 @@ namespace FinalProject
                         }
                         btn_delete.Enabled = false;
                         btn_edit.Enabled = false;
-                        MessageBox.Show("Journey deleted successfully");
+                        MessageBox.Show("Viagem deletada com sucesso!");
                         FieldsCleaning();
                     }
                 }
@@ -357,7 +425,7 @@ namespace FinalProject
         {
             ID_Vehicle_Txt.Text = vehicle.VehicleId;
             Txt_Vehicle_Model.Text = vehicle.Model;
-            Txt_Plate.Text = vehicle.Plate;
+            txtmsk_plate.Text = vehicle.Plate;
             Txt_Avarage.Text = vehicle.AverageCons;
             Txt_Max_Weight.Text = vehicle.MaxLoad;
 
@@ -368,8 +436,8 @@ namespace FinalProject
         {
             Txt_Driver_ID.Text = driver.DriverId;
             Txt_DriverName.Text = driver.Name;
-            Txt_DriverLicense.Text = driver.Cnh;
-            Txt_DriverPhone.Text = driver.Phone;
+            txtmsk_driverlicense.Text = driver.Cnh;
+            txtmsk_phone.Text = driver.Phone;
         }
 
         private void DataBridgeRoute(RoutesDatas route)
@@ -384,8 +452,8 @@ namespace FinalProject
         {
             Txt_FuelId.Text = fuel.FuelId;
             cb_TypeFuel.Text = fuel.Type;
-            Txt_FuelPrice.Text = fuel.Price;
-            DateTimeFuel.Value = DateTime.Parse(fuel.Date);
+            txtmsk_fuelprice.Text = fuel.Price;
+            DateTimeFuel.Value = DateTime.Parse(fuel.DateSearch);
         }
 
         private void DataBridgeTravel(TravelDatas travel)
@@ -405,12 +473,31 @@ namespace FinalProject
             string Destination = travel.path;
             string RouteID = travel.RouteId;
 
+
+
+            cb_situation.Text = travel.Situation;
             Txt_TravelID.Text = travel.TravelId;
             DateTimeStartTravel.Value = DateTime.Parse(travel.DepartureDate);
             DateTimeBring.Value = DateTime.Parse(travel.ArrivalDate);
-            cb_vehicle.Text = $"{VehicleID} - {Model} - {Plate}";
-            cb_travel.Text = $"{RouteID} - {Origin} - {Destination}";
-            cb_driver.Text = $"{DriverID} - {Name} - {cnh}";
+
+            if (int.TryParse(VehicleID, out int vId))
+            {
+                cb_vehicle.SelectedValue = vId;
+            }
+
+            if (int.TryParse(RouteID, out int rId))
+            {
+                cb_travel.SelectedValue = rId;
+            }
+
+            if (int.TryParse(DriverID, out int dId))
+            {
+                cb_driver.SelectedValue = dId;
+            }
+
+            //cb_vehicle.Text = $"{VehicleID} - {Model} - {Plate}";
+            //cb_travel.Text = $"{RouteID} - {Origin} - {Destination}";
+            //cb_driver.Text = $"{DriverID} - {Name} - {cnh}";
         }
         private void searchForm()
         {
@@ -429,7 +516,7 @@ namespace FinalProject
                             DataBridgeVehicle(vehicle);
                             btn_delete.Enabled = true;
                             btn_edit.Enabled = true;
-                            Txt_Plate.Enabled = false;
+                            txtmsk_plate.Enabled = false;
                         }
                     }
                     else
@@ -452,7 +539,7 @@ namespace FinalProject
                             DataBridgeDriver(driver);
                             btn_delete.Enabled = true;
                             btn_edit.Enabled = true;
-                            Txt_DriverLicense.Enabled = false;
+                            txtmsk_driverlicense.Enabled = false;
 
                         }
                     }
@@ -521,9 +608,26 @@ namespace FinalProject
             if (indice == 0)
             {
 
-                if (Txt_Vehicle_Model.Text.Length == 0 || Txt_Plate.Text.Length == 0 || Txt_Avarage.Text.Length == 0 || Txt_Max_Weight.Text.Length == 0 )
+                if (!double.TryParse(Txt_Avarage.Text.Replace(",", "."),
+                    System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture, out _))
                 {
-                    MessageBox.Show("Please fill in all fields.");
+                    MessageBox.Show("Digite um número válido (ex: 12,5 ou 12.5).", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
+                if (!double.TryParse(Txt_Max_Weight.Text.Replace(",", "."),
+                  System.Globalization.NumberStyles.Any,
+                  System.Globalization.CultureInfo.InvariantCulture, out _))
+                {
+                    MessageBox.Show("Digite um número válido (ex: 3000,5 ou 3000.5).", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (Txt_Vehicle_Model.Text.Length == 0 || txtmsk_plate.Text.Length == 0 || Txt_Avarage.Text.Length == 0 || Txt_Max_Weight.Text.Length == 0)
+                {
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -537,14 +641,14 @@ namespace FinalProject
                         using (var cmd = new SQLiteCommand(insertQuery, connect))
                         {
                             cmd.Parameters.AddWithValue("@Modelo", Txt_Vehicle_Model.Text);
-                            cmd.Parameters.AddWithValue("@Placa", Txt_Plate.Text);
+                            cmd.Parameters.AddWithValue("@Placa", txtmsk_plate.Text);
                             cmd.Parameters.AddWithValue("@ConsMedio", Txt_Avarage.Text);
                             cmd.Parameters.AddWithValue("@CargaMax", Txt_Max_Weight.Text);
 
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("Vehicle data saved successfully!");
+                    MessageBox.Show("Veículo salvo com Sucesso!");
                     FieldsCleaning();
                 }
                 catch (Exception ex)
@@ -554,6 +658,12 @@ namespace FinalProject
             }
             else if (indice == 1)
             {
+
+                if (Txt_DriverName.Text.Length == 0 || txtmsk_driverlicense.Text.Length == 0 || txtmsk_phone.Text.Length == 0)
+                {
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 try
                 {
                     using (var connect = new SQLiteConnection(connectionString))
@@ -565,13 +675,13 @@ namespace FinalProject
                         {
 
                             cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
-                            cmd.Parameters.AddWithValue("@CNH", Txt_DriverLicense.Text);
-                            cmd.Parameters.AddWithValue("@Phone", Txt_DriverPhone.Text);
+                            cmd.Parameters.AddWithValue("@CNH", txtmsk_driverlicense.Text);
+                            cmd.Parameters.AddWithValue("@Phone", txtmsk_phone.Text);
 
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("Driver Saved Successfully!");
+                    MessageBox.Show("Motorista salvo com Sucesso!");
                     FieldsCleaning();
                 }
                 catch (Exception ex)
@@ -583,9 +693,9 @@ namespace FinalProject
             {
                 try
                 {
-                    if(Txt_RouteOrigin.Text.Length == 0 || Txt_RouteDestiny.Text.Length == 0 || Txt_RoutePath.Text.Length == 0)
+                    if (Txt_RouteOrigin.Text.Length == 0 || Txt_RouteDestiny.Text.Length == 0 || Txt_RoutePath.Text.Length == 0)
                     {
-                        MessageBox.Show("Please fill in all fields.");
+                        MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -603,7 +713,7 @@ namespace FinalProject
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("Route Saved Successfully!");
+                    MessageBox.Show("Nova rota salva com Sucesso!");
                     FieldsCleaning();
                 }
                 catch (Exception ex)
@@ -614,18 +724,18 @@ namespace FinalProject
             else if (indice == 3)
             {
 
-                if(cb_TypeFuel.SelectedIndex == -1 || Txt_FuelPrice.Text.Length == 0)
+                if (cb_TypeFuel.SelectedIndex == -1 || txtmsk_fuelprice.Text.Length == 0)
                 {
-                    MessageBox.Show("Please fill in all fields.");
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 DateTime dataConsulta = DateTimeFuel.Value;
                 DateTime dataHoje = DateTime.Today;
 
-                if(dataConsulta != dataHoje)
+                if (dataConsulta != dataHoje)
                 {
-                    MessageBox.Show("The consultation date must be today's date.");
+                    MessageBox.Show("A data de consulta deve ser a data de Hoje!.", "Atenção (Problemas nas Datas)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 try
@@ -638,13 +748,37 @@ namespace FinalProject
                         using (var cmd = new SQLiteCommand(insertQuery, connect))
                         {
                             cmd.Parameters.AddWithValue("@Combustível", cb_TypeFuel.Text);
-                            cmd.Parameters.AddWithValue("@Preco", Txt_FuelPrice.Text);
                             cmd.Parameters.AddWithValue("@DataConsulta", DateTimeFuel.Value.ToString("yyyy-MM-dd"));
+
+                            string precoSuja = txtmsk_fuelprice.Text;
+
+
+                            string precoLimpa = precoSuja
+                                .Replace("R$", "")
+                                .Trim()
+                                .Replace(",", ".");
+
+
+                            if (double.TryParse(
+                                    precoLimpa,
+                                    System.Globalization.NumberStyles.Any,
+                                    System.Globalization.CultureInfo.InvariantCulture,
+                                    out double precoDouble))
+                            {
+
+                                cmd.Parameters.AddWithValue("@Preco", precoDouble);
+                            }
+                            else
+                            {
+
+                                MessageBox.Show("Erro na formatação do preço. Verifique o valor.");
+                                return;
+                            }
 
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("Fuel Price Was Saved Successfully!");
+                    MessageBox.Show("O Preço de Combustível foi salvo com Sucesso!");
                     FieldsCleaning();
                 }
                 catch (Exception ex)
@@ -656,9 +790,9 @@ namespace FinalProject
             else if (indice == 4)
             {
 
-                if(cb_vehicle.SelectedIndex == -1 || cb_travel.SelectedIndex == -1 || cb_driver.SelectedIndex == -1)
+                if (cb_vehicle.SelectedIndex == -1 || cb_travel.SelectedIndex == -1 || cb_driver.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Please select a vehicle, route, and driver.");
+                    MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -667,13 +801,14 @@ namespace FinalProject
 
                 DateTime Hoje = DateTime.Today;
 
-                if(DataSaida < Hoje)
+                if (DataSaida < Hoje)
                 {
-                    MessageBox.Show("Departure date cannot be earlier than today.");
+                    MessageBox.Show("A Data de Saída não pode ser antes da data de Hoje.", "Atenção (Problemas nas Datas)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-                }else if(DataChegada < DataSaida)
+                }
+                else if (DataChegada < DataSaida)
                 {
-                    MessageBox.Show("Arrival date cannot be earlier than departure date.");
+                    MessageBox.Show("A Data de Chegada não pode ser antes da Data de Saída.", "Atenção (Problemas nas Datas)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -688,17 +823,40 @@ namespace FinalProject
                         {
                             cmd.Parameters.AddWithValue("@DataSaida", DateTimeStartTravel.Value.ToString("yyyy-MM-dd"));
                             cmd.Parameters.AddWithValue("@DataChegada", DateTimeBring.Value.ToString("yyyy-MM-dd"));
-                            cmd.Parameters.AddWithValue("@Situacao", "Em Andamento");
-
                             cmd.Parameters.AddWithValue("@Veiculo", cb_vehicle.SelectedValue);
+
+                            if (cb_situation.SelectedIndex == 0)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Em Agendamento");
+                            }
+                            else if (cb_situation.SelectedIndex == 1)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Em Andamento");
+                            }
+                            else if (cb_situation.SelectedIndex == 2)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Recluso");
+                            }
+                            else if (cb_situation.SelectedIndex == 3)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Entregue");
+                            }
+                            else if (cb_situation.SelectedIndex == 4)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Cancelado");
+                            }
+                            else if (cb_situation.SelectedIndex == -1)
+                            {
+                                cmd.Parameters.AddWithValue("@Situacao", "Em Agendamento");
+                            }
                             cmd.Parameters.AddWithValue("@Rota", cb_travel.SelectedValue);
                             cmd.Parameters.AddWithValue("@Motorista", cb_driver.SelectedValue);
 
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    
-                    MessageBox.Show("New Journey Was Saved Successfully!");
+
+                    MessageBox.Show("Nova viagem foi salva com Sucesso!");
                     FieldsCleaning();
                 }
                 catch (Exception ex)
@@ -806,15 +964,15 @@ namespace FinalProject
             //Veículo
             ID_Vehicle_Txt.Clear();
             Txt_Vehicle_Model.Clear();
-            Txt_Plate.Clear();
+            txtmsk_plate.Clear();
             Txt_Avarage.Clear();
             Txt_Max_Weight.Clear();
 
             //Motorista
             Txt_Driver_ID.Clear();
             Txt_DriverName.Clear();
-            Txt_DriverLicense.Clear();
-            Txt_DriverPhone.Clear();
+            txtmsk_driverlicense.Clear();
+            txtmsk_phone.Clear();
 
             //Rota
             Txt_Route_ID.Clear();
@@ -826,15 +984,16 @@ namespace FinalProject
             Txt_FuelId.Clear();
             cb_TypeFuel.SelectedIndex = -1;
             DateTimeFuel.Value = DateTime.Today;
-            Txt_FuelPrice.Clear();
+            txtmsk_fuelprice.Clear();
 
             //Viagem
             Txt_TravelID.Clear();
             DateTimeStartTravel.Value = DateTime.Today;
             DateTimeBring.Value = DateTime.Today;
-            cb_vehicle.Text = "";
-            cb_travel.Text = "";
-            cb_driver.Text = "";
+            cb_vehicle.SelectedIndex = -1;
+            cb_travel.SelectedIndex = -1;
+            cb_driver.SelectedIndex = -1;
+            cb_situation.SelectedIndex = -1;
 
             btn_delete.Enabled = false;
             btn_edit.Enabled = false;
@@ -845,6 +1004,9 @@ namespace FinalProject
             FieldsCleaning();
         }
 
-      
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
