@@ -39,7 +39,7 @@ namespace FinalProject
                 }
                 Form1 frm1 = new Form1();
                 frm1.Show();
-                MessageBox.Show("Usuário registrado com sucesso!");
+                MessageBox.Show("Usuário logado com sucesso!");
                 this.Hide();    
             }
             catch (Exception ex)

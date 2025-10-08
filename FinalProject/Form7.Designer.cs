@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form7));
             tabControl1 = new TabControl();
             Login = new TabPage();
             txt_pword = new TextBox();
@@ -64,6 +65,8 @@
             // 
             // Login
             // 
+            Login.BackgroundImage = (Image)resources.GetObject("Login.BackgroundImage");
+            Login.BackgroundImageLayout = ImageLayout.Stretch;
             Login.Controls.Add(txt_pword);
             Login.Controls.Add(txt_email);
             Login.Controls.Add(btn_login);
@@ -133,6 +136,8 @@
             // 
             // Register
             // 
+            Register.BackgroundImage = (Image)resources.GetObject("Register.BackgroundImage");
+            Register.BackgroundImageLayout = ImageLayout.Stretch;
             Register.Controls.Add(btn_register);
             Register.Controls.Add(label8);
             Register.Controls.Add(label7);

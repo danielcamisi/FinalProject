@@ -237,7 +237,7 @@ namespace FinalProject
                     using (var connect = new SQLiteConnection(connectionString))
                     {
                         connect.Open();
-                        string updateQuery = "UPDATE VIAGEM SET DATA_SAIDA = @DataSaida, DATA_CHEGADA = @DataChegada, VEICULOID = @Veiculo, ROTAID = @Rota, MOTORISTAID = @Motorista WHERE VIAGEMID = @Viagem";
+                        string updateQuery = "UPDATE VIAGEM SET DATA_SAIDA = @DataSaida, DATA_CHEGADA = @DataChegada, VEICULOID = @Veiculo, SITUACAO = @Situacao, ROTAID = @Rota, MOTORISTAID = @Motorista WHERE VIAGEMID = @Viagem";
                         using (var cmd = new SQLiteCommand(updateQuery, connect))
                         {
                             cmd.Parameters.AddWithValue("@DataSaida", DateTimeStartTravel.Value.ToString("yyyy-MM-dd"));
@@ -246,7 +246,7 @@ namespace FinalProject
                             cmd.Parameters.AddWithValue("@Rota", cb_travel.SelectedValue);
                             cmd.Parameters.AddWithValue("@Motorista", cb_driver.SelectedValue);
                             cmd.Parameters.AddWithValue("@Viagem", Txt_TravelID.Text);
-
+                            cmd.Parameters.AddWithValue("@Situacao", cb_situation.SelectedValue);
 
                             if (cb_situation.SelectedIndex == 0)
                             {
@@ -495,9 +495,6 @@ namespace FinalProject
                 cb_driver.SelectedValue = dId;
             }
 
-            //cb_vehicle.Text = $"{VehicleID} - {Model} - {Plate}";
-            //cb_travel.Text = $"{RouteID} - {Origin} - {Destination}";
-            //cb_driver.Text = $"{DriverID} - {Name} - {cnh}";
         }
         private void searchForm()
         {
