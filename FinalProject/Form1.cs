@@ -9,19 +9,18 @@ using static FinalProject.Form3;
 using static FinalProject.Form4;
 using static FinalProject.Form5;
 using static FinalProject.Form6;
+using System.Windows.Forms.VisualStyles;
 
 namespace FinalProject
 {
     public partial class Form1 : Form
     {
 
-        string dbPath = @"C:\Users\daniel.csilva66\Downloads\logistica.db";
 
-        string connectionString;
         public Form1()
         {
             InitializeComponent();
-            connectionString = $"Data Source={dbPath};Version=3;";
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -30,20 +29,23 @@ namespace FinalProject
             searchDriver();
             searchRoute();
             searchVehicle();
-            panel1.Width = 2000;
+
         }
         private void ConnectDb()
         {
             try
             {
-                using (var connect = new SQLiteConnection(connectionString))
+                // Apenas para testar se a conexão abre e fecha corretamente.
+                using (var testConn = Connection.ObterConexao())
                 {
-                    connect.Open();
+                    MessageBox.Show("Conexão com o banco de dados estabelecida com sucesso!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Erro fatal na conexão inicial: " + ex.Message);
+                this.Close(); // Fecha a aplicação se não conseguir conectar
+                return;
             }
         }
 
@@ -96,11 +98,10 @@ namespace FinalProject
                 }
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
                         string updateQuery = "UPDATE VEICULO SET MODELO = @Modelo, CONSUMO_MEDIO = @ConsMedio, CARGA_MAXIMA = @CargaMax WHERE VEICULOID = @VeiculoID";
-                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        using (var cmd = new SQLiteCommand(updateQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@VeiculoID", ID_Vehicle_Txt.Text);
                             cmd.Parameters.AddWithValue("@Modelo", Txt_Vehicle_Model.Text);
@@ -132,27 +133,24 @@ namespace FinalProject
                 }
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
+
+                    string updateQuery = "UPDATE MOTORISTA SET NOME = @Nome, TELEFONE = @Phone WHERE MOTORISTAID = @MotoristaID";
+                    using (var cmd = new SQLiteCommand(updateQuery, conexao))
                     {
-                        connect.Open();
-                        string updateQuery = "UPDATE MOTORISTA SET NOME = @Nome, TELEFONE = @Phone WHERE MOTORISTAID = @MotoristaID";
-                        using (var cmd = new SQLiteCommand(updateQuery, connect))
-                        {
-                            cmd.Parameters.AddWithValue("@MotoristaID", Txt_Driver_ID.Text);
-                            cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
-                            cmd.Parameters.AddWithValue("@Phone", txtmsk_phone.Text);
-                            cmd.Parameters.AddWithValue("@CNH", txtmsk_driverlicense.Text);
-                            cmd.ExecuteNonQuery();
-                        }
-                        btn_delete.Enabled = false;
-                        btn_edit.Enabled = false;
-                        txtmsk_driverlicense.Enabled = true;
-
-
-                        MessageBox.Show("Motorista editado com sucesso!");
-                        FieldsCleaning();
+                        cmd.Parameters.AddWithValue("@MotoristaID", Txt_Driver_ID.Text);
+                        cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
+                        cmd.Parameters.AddWithValue("@Phone", txtmsk_phone.Text);
+                        cmd.Parameters.AddWithValue("@CNH", txtmsk_driverlicense.Text);
+                        cmd.ExecuteNonQuery();
                     }
+                    btn_delete.Enabled = false;
+                    btn_edit.Enabled = false;
+                    txtmsk_driverlicense.Enabled = true;
 
+
+                    MessageBox.Show("Motorista editado com sucesso!");
+                    FieldsCleaning();
                 }
                 catch (Exception ex)
                 {
@@ -169,11 +167,10 @@ namespace FinalProject
                 }
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
                         string updateQuery = "UPDATE ROTA SET DESTINO = @Destino, DISTANCIA = @Dist, ORIGEM = @Origem WHERE ROTAID = @RotaID";
-                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        using (var cmd = new SQLiteCommand(updateQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@RotaID", Txt_Route_ID.Text);
                             cmd.Parameters.AddWithValue("@Destino", Txt_RouteDestiny.Text);
@@ -203,11 +200,10 @@ namespace FinalProject
                 }
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
                         string updateQuery = "UPDATE PRECO_COMBUSTIVEL SET COMBUSTIVEL = @Combustível, PRECO = @Preco, DATA_CONSULTA = @DataConsulta WHERE PRECOID = @PrecoID";
-                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        using (var cmd = new SQLiteCommand(updateQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@PrecoID", Txt_FuelId.Text);
                             cmd.Parameters.AddWithValue("@Combustível", cb_TypeFuel.Text);
@@ -234,11 +230,11 @@ namespace FinalProject
             {
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string updateQuery = "UPDATE VIAGEM SET DATA_SAIDA = @DataSaida, DATA_CHEGADA = @DataChegada, VEICULOID = @Veiculo, SITUACAO = @Situacao, ROTAID = @Rota, MOTORISTAID = @Motorista WHERE VIAGEMID = @Viagem";
-                        using (var cmd = new SQLiteCommand(updateQuery, connect))
+                        using (var cmd = new SQLiteCommand(updateQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@DataSaida", DateTimeStartTravel.Value.ToString("yyyy-MM-dd"));
                             cmd.Parameters.AddWithValue("@DataChegada", DateTimeBring.Value.ToString("yyyy-MM-dd"));
@@ -297,11 +293,11 @@ namespace FinalProject
             {
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string deleteQuery = "DELETE FROM VEICULO WHERE VEICULOID = @VeiculoID";
-                        using (var cmd = new SQLiteCommand(deleteQuery, connect))
+                        using (var cmd = new SQLiteCommand(deleteQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@VeiculoID", ID_Vehicle_Txt.Text);
                             cmd.Parameters.AddWithValue("@Placa", txtmsk_plate.Text);
@@ -325,11 +321,11 @@ namespace FinalProject
             {
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string deleteQuery = "DELETE FROM MOTORISTA WHERE CNH = @CNH";
-                        using (var cmd = new SQLiteCommand(deleteQuery, connect))
+                        using (var cmd = new SQLiteCommand(deleteQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@CNH", txtmsk_plate.Text);
                             cmd.ExecuteNonQuery();
@@ -350,11 +346,11 @@ namespace FinalProject
             {
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string deleteQuery = "DELETE FROM ROTA WHERE ORIGEM = @Origem";
-                        using (var cmd = new SQLiteCommand(deleteQuery, connect))
+                        using (var cmd = new SQLiteCommand(deleteQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@Origem", Txt_RouteOrigin.Text);
                             cmd.ExecuteNonQuery();
@@ -374,11 +370,11 @@ namespace FinalProject
             {
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string deleteQuery = "DELETE FROM PRECO_COMBUSTIVEL WHERE PRECOID = @Combustivel";
-                        using (var cmd = new SQLiteCommand(deleteQuery, connect))
+                        using (var cmd = new SQLiteCommand(deleteQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@Combustivel", Txt_FuelId.Text);
                             cmd.ExecuteNonQuery();
@@ -399,11 +395,11 @@ namespace FinalProject
             {
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string deleteQuery = "DELETE FROM VIAGEM WHERE VIAGEMID = @Viagem";
-                        using (var cmd = new SQLiteCommand(deleteQuery, connect))
+                        using (var cmd = new SQLiteCommand(deleteQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@Viagem", Txt_TravelID.Text);
                             cmd.ExecuteNonQuery();
@@ -630,12 +626,12 @@ namespace FinalProject
 
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string insertQuery = @"INSERT INTO VEICULO (MODELO, PLACA, CONSUMO_MEDIO, CARGA_MAXIMA) " +
                             "VALUES (@Modelo, @Placa, @ConsMedio, @CargaMax)";
-                        using (var cmd = new SQLiteCommand(insertQuery, connect))
+                        using (var cmd = new SQLiteCommand(insertQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@Modelo", Txt_Vehicle_Model.Text);
                             cmd.Parameters.AddWithValue("@Placa", txtmsk_plate.Text);
@@ -663,12 +659,12 @@ namespace FinalProject
                 }
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string insertQuery = @"INSERT INTO MOTORISTA (NOME, CNH,TELEFONE) " +
                             "VALUES (@Nome, @CNH, @Phone)";
-                        using (var cmd = new SQLiteCommand(insertQuery, connect))
+                        using (var cmd = new SQLiteCommand(insertQuery, conexao))
                         {
 
                             cmd.Parameters.AddWithValue("@Nome", Txt_DriverName.Text);
@@ -696,12 +692,12 @@ namespace FinalProject
                         return;
                     }
 
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string insertQuery = @"INSERT INTO ROTA (ORIGEM, DESTINO,DISTANCIA) " +
                             "VALUES (@Origem, @Destino, @Dist)";
-                        using (var cmd = new SQLiteCommand(insertQuery, connect))
+                        using (var cmd = new SQLiteCommand(insertQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@Origem", Txt_RouteOrigin.Text);
                             cmd.Parameters.AddWithValue("@Destino", Txt_RouteDestiny.Text);
@@ -737,12 +733,12 @@ namespace FinalProject
                 }
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string insertQuery = @"INSERT INTO PRECO_COMBUSTIVEL (COMBUSTIVEL, PRECO, DATA_CONSULTA) " +
                             "VALUES (@Combustível, @Preco, @DataConsulta)";
-                        using (var cmd = new SQLiteCommand(insertQuery, connect))
+                        using (var cmd = new SQLiteCommand(insertQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@Combustível", cb_TypeFuel.Text);
                             cmd.Parameters.AddWithValue("@DataConsulta", DateTimeFuel.Value.ToString("yyyy-MM-dd"));
@@ -811,12 +807,12 @@ namespace FinalProject
 
                 try
                 {
-                    using (var connect = new SQLiteConnection(connectionString))
+                    using var conexao = Connection.ObterConexao();
                     {
-                        connect.Open();
+
                         string insertQuery = @"INSERT INTO VIAGEM (DATA_SAIDA, DATA_CHEGADA, SITUACAO, VEICULOID , ROTAID, MOTORISTAID) " +
                             "VALUES (@DataSaida, @DataChegada, @Situacao, @Veiculo,@Rota, @Motorista )";
-                        using (var cmd = new SQLiteCommand(insertQuery, connect))
+                        using (var cmd = new SQLiteCommand(insertQuery, conexao))
                         {
                             cmd.Parameters.AddWithValue("@DataSaida", DateTimeStartTravel.Value.ToString("yyyy-MM-dd"));
                             cmd.Parameters.AddWithValue("@DataChegada", DateTimeBring.Value.ToString("yyyy-MM-dd"));
@@ -868,11 +864,11 @@ namespace FinalProject
         {
             try
             {
-                using (var connect = new SQLiteConnection(connectionString))
+                using var conexao = Connection.ObterConexao();
                 {
-                    connect.Open();
+
                     string searchQuery = "SELECT (VEICULOID || ' - ' || MODELO || ' - ' || PLACA) AS DESCRICAO, VEICULOID FROM VEICULO ORDER BY MODELO";
-                    using (var cmd = new SQLiteDataAdapter(searchQuery, connect))
+                    using (var cmd = new SQLiteDataAdapter(searchQuery, conexao))
                     {
 
                         DataTable tabelaVeiculos = new DataTable();
@@ -897,11 +893,11 @@ namespace FinalProject
         {
             try
             {
-                using (var connect = new SQLiteConnection(connectionString))
+                using var conexao = Connection.ObterConexao();
                 {
-                    connect.Open();
+
                     string searchQuery = "SELECT (ROTAID || ' - ' || ORIGEM || ' - Até - ' || DESTINO) AS DESCRICAO, ROTAID FROM ROTA ORDER BY ORIGEM";
-                    using (var cmd = new SQLiteDataAdapter(searchQuery, connect))
+                    using (var cmd = new SQLiteDataAdapter(searchQuery, conexao))
                     {
                         DataTable tabelaRotas = new DataTable();
                         cmd.Fill(tabelaRotas);
@@ -921,11 +917,11 @@ namespace FinalProject
         {
             try
             {
-                using (var connect = new SQLiteConnection(connectionString))
+                using var conexao = Connection.ObterConexao();
                 {
-                    connect.Open();
+
                     string searchQuery = "SELECT(MOTORISTAID || ' - ' || NOME || ' - CNH: ' || CNH) AS NOME, MOTORISTAID FROM MOTORISTA ORDER BY NOME";
-                    using (var cmd = new SQLiteDataAdapter(searchQuery, connect))
+                    using (var cmd = new SQLiteDataAdapter(searchQuery, conexao))
                     {
                         DataTable tabelaMotoristas = new DataTable();
                         cmd.Fill(tabelaMotoristas);
@@ -1004,6 +1000,60 @@ namespace FinalProject
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+
+        private void logout()
+        {
+            this.Hide();
+            Form7 frm7 = new Form7();
+            frm7.Show();
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            logout();
+        }
+
+        private void btn_clearRoute_Click(object sender, EventArgs e)
+        {
+            FieldsCleaning();
+        }
+
+        private void btn_clearDriver_Click(object sender, EventArgs e)
+        {
+            FieldsCleaning();
+        }
+        private void btn_clear_Click(object sender, EventArgs e)
+        {
+            FieldsCleaning();
+        }
+        private void btn_clearFuel_Click(object sender, EventArgs e)
+        {
+            FieldsCleaning();
+        }
+        private void btn_clearTravel_Click(object sender, EventArgs e)
+        {
+            FieldsCleaning();
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.ClientSize.Width < 1200)
+            {
+                btn_logout.Location = new Point(1085, 25);
+                panel1.Width = 1145;
+            }
+            else
+            {
+                btn_logout.Location = new Point(1855, 25);
+                panel1.Width = 1908;
+            }
+        }
+
+        private void cb_travel_DropDown(object sender, EventArgs e)
+        {
+            searchRoute();
         }
     }
 }

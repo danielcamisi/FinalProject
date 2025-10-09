@@ -60,7 +60,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(533, 676);
+            tabControl1.Size = new Size(526, 676);
             tabControl1.TabIndex = 0;
             // 
             // Login
@@ -76,7 +76,7 @@
             Login.Location = new Point(4, 24);
             Login.Name = "Login";
             Login.Padding = new Padding(3);
-            Login.Size = new Size(525, 648);
+            Login.Size = new Size(518, 648);
             Login.TabIndex = 0;
             Login.Text = "Entrar";
             Login.UseVisualStyleBackColor = true;
@@ -151,7 +151,7 @@
             Register.Location = new Point(4, 24);
             Register.Name = "Register";
             Register.Padding = new Padding(3);
-            Register.Size = new Size(525, 648);
+            Register.Size = new Size(518, 648);
             Register.TabIndex = 1;
             Register.Text = "Cadastrar";
             Register.UseVisualStyleBackColor = true;
@@ -248,9 +248,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(529, 677);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Form7";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bem-Vindo Gestão de Logística";
+            FormClosing += Form7_FormClosing;
+            Load += Form7_Load;
             tabControl1.ResumeLayout(false);
             Login.ResumeLayout(false);
             Login.PerformLayout();

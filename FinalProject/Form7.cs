@@ -21,7 +21,7 @@ namespace FinalProject
         private void btn_login_Click(object sender, EventArgs e)
         {
 
-            if(txt_email.Text.Length == 0 || txt_pword.Text.Length == 0)
+            if (txt_email.Text.Length == 0 || txt_pword.Text.Length == 0)
             {
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
@@ -40,7 +40,7 @@ namespace FinalProject
                 Form1 frm1 = new Form1();
                 frm1.Show();
                 MessageBox.Show("Usuário logado com sucesso!");
-                this.Hide();    
+                this.Hide();
             }
             catch (Exception ex)
             {
@@ -51,12 +51,13 @@ namespace FinalProject
         private void btn_register_Click(object sender, EventArgs e)
         {
 
-            if (txt_confirmpword.Text.Length == 0 || txt_emailregister.Text.Length == 0|| txt_name.Text.Length == 0 || txt_registerpword.Text.Length == 0)
+            if (txt_confirmpword.Text.Length == 0 || txt_emailregister.Text.Length == 0 || txt_name.Text.Length == 0 || txt_registerpword.Text.Length == 0)
             {
                 MessageBox.Show("Por favor, preencha todos os campos.");
+                return;
             }
 
-            if(txt_confirmpword.Text != txt_registerpword.Text)
+            if (txt_confirmpword.Text != txt_registerpword.Text)
             {
                 MessageBox.Show("As senhas não coincidem.");
                 return;
@@ -82,6 +83,16 @@ namespace FinalProject
             {
                 MessageBox.Show("Erro ao Registrar: " + ex.Message);
             }
+        }
+
+        private void Form7_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form7_Load(object sender, EventArgs e)
+        {
+            Connection.CriarBancoSeNaoExistir();
         }
     }
 }
