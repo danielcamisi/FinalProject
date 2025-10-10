@@ -637,7 +637,7 @@
             // 
             // txtmsk_driverlicense
             // 
-            txtmsk_driverlicense.Location = new Point(313, 275);
+            txtmsk_driverlicense.Location = new Point(314, 275);
             txtmsk_driverlicense.Mask = "00000000000/AA";
             txtmsk_driverlicense.Name = "txtmsk_driverlicense";
             txtmsk_driverlicense.Size = new Size(167, 29);

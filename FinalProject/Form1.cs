@@ -29,7 +29,6 @@ namespace FinalProject
             searchDriver();
             searchRoute();
             searchVehicle();
-
         }
         private void ConnectDb()
         {
@@ -91,7 +90,7 @@ namespace FinalProject
                 }
 
 
-                if (Txt_Vehicle_Model.Text.Length == 0 || txtmsk_plate.Text.Length == 0 || Txt_Avarage.Text.Length == 0 || Txt_Max_Weight.Text.Length == 0)
+                if (string.IsNullOrEmpty(Txt_Vehicle_Model.Text)|| !txtmsk_plate.MaskCompleted || string.IsNullOrEmpty(Txt_Avarage.Text) || string.IsNullOrEmpty(Txt_Max_Weight.Text))
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -126,7 +125,7 @@ namespace FinalProject
             else if (indice == 1)
             {
 
-                if (Txt_DriverName.Text.Length == 0 || txtmsk_driverlicense.Text.Length == 0 || txtmsk_phone.Text.Length == 0)
+                if (string.IsNullOrEmpty(Txt_DriverName.Text)|| !txtmsk_driverlicense.MaskCompleted || !txtmsk_phone.MaskCompleted)
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -160,7 +159,7 @@ namespace FinalProject
             else if (indice == 2)
             {
 
-                if (Txt_RouteOrigin.Text.Length == 0 || Txt_RouteDestiny.Text.Length == 0 || Txt_RoutePath.Text.Length == 0)
+                if (string.IsNullOrWhiteSpace(Txt_RouteOrigin.Text) || string.IsNullOrWhiteSpace(Txt_RouteDestiny.Text) || string.IsNullOrWhiteSpace(Txt_RoutePath.Text))
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -193,7 +192,7 @@ namespace FinalProject
             }
             else if (indice == 3)
             {
-                if (cb_TypeFuel.SelectedIndex == -1 || txtmsk_fuelprice.Text.Length == 0)
+                if (cb_TypeFuel.SelectedIndex == -1 || !txtmsk_fuelprice.MaskCompleted)
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -618,7 +617,7 @@ namespace FinalProject
                     return;
                 }
 
-                if (Txt_Vehicle_Model.Text.Length == 0 || txtmsk_plate.Text.Length == 0 || Txt_Avarage.Text.Length == 0 || Txt_Max_Weight.Text.Length == 0)
+                if (string.IsNullOrWhiteSpace(Txt_Vehicle_Model.Text) || !txtmsk_plate.MaskCompleted || string.IsNullOrWhiteSpace(Txt_Avarage.Text) || string.IsNullOrWhiteSpace(Txt_Max_Weight.Text))
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -651,8 +650,9 @@ namespace FinalProject
             }
             else if (indice == 1)
             {
-
-                if (Txt_DriverName.Text.Length == 0 || txtmsk_driverlicense.Text.Length == 0 || txtmsk_phone.Text.Length == 0)
+                if (string.IsNullOrWhiteSpace(Txt_DriverName.Text) ||
+                    !txtmsk_driverlicense.MaskCompleted ||
+                    !txtmsk_phone.MaskCompleted)
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -686,7 +686,7 @@ namespace FinalProject
             {
                 try
                 {
-                    if (Txt_RouteOrigin.Text.Length == 0 || Txt_RouteDestiny.Text.Length == 0 || Txt_RoutePath.Text.Length == 0)
+                    if (string.IsNullOrWhiteSpace(Txt_RouteOrigin.Text) || string.IsNullOrWhiteSpace(Txt_RouteDestiny.Text)|| string.IsNullOrEmpty(Txt_RoutePath.Text) )
                     {
                         MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -717,7 +717,7 @@ namespace FinalProject
             else if (indice == 3)
             {
 
-                if (cb_TypeFuel.SelectedIndex == -1 || txtmsk_fuelprice.Text.Length == 0)
+                if (cb_TypeFuel.SelectedIndex == -1 || !txtmsk_fuelprice.MaskCompleted)
                 {
                     MessageBox.Show("Por favor preencha todos os campos.", "Atenção ao Inserir!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
